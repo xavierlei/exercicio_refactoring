@@ -75,19 +75,22 @@ public class Evento implements Subject {
 		this.dataEvento = dataEvento;
 	}
 
+        public void setResultado(char resultado){
+            switch (resultado) {
+		case '1':
+                    this.resultado_final = Resultado.VITORIA;
+                    break;
+		case 'x':
+                    this.resultado_final = Resultado.EMPATE;
+                    break;
+		case '2':
+                    this.resultado_final = Resultado.DERROTA;
+                    break;
+            }
+        }
+        
 	public boolean fechaEvento(char resultadofinal){
-
-			switch (resultadofinal) {
-				case '1':
-					this.resultado_final = Resultado.VITORIA;
-					break;
-				case 'x':
-					this.resultado_final = Resultado.EMPATE;
-					break;
-				case '2':
-					this.resultado_final = Resultado.DERROTA;
-					break;
-			}
+		this.setResultado(resultadofinal);
 		this.isOpen = false;
 		this.notifyApostadores();
 		return true;
@@ -115,31 +118,21 @@ public class Evento implements Subject {
 		// TODO - implement Aposta.setEstado
 
 	}
-
+        private int premio(Aposta aposta){
+            if (this.resultado_final == aposta.getResultado()) {
+                return aposta.getPremio();
+            }
+            return 0;
+        }
 	public void notifyApostadores() {
 		int premio = 0;
 		if (!this.isOpen){
-			Enumeration<Aposta> lista_apostas = this.listaApostas.elements();
-			while (lista_apostas.hasMoreElements()) {
-				Aposta aposta = lista_apostas.nextElement();
+                    Enumeration<Aposta> lista_apostas = this.listaApostas.elements();
+                    while (lista_apostas.hasMoreElements()) {
+			Aposta aposta = lista_apostas.nextElement();
 
-				if (this.resultado_final == aposta.getResultado()) {
-
-					switch (aposta.getResultado()) {
-						case VITORIA:
-							premio = (int) (aposta.getM_aposta() * aposta.getOdd_fixada().getOdd1());
-							break;
-						case EMPATE:
-							premio = (int) (aposta.getM_aposta() * aposta.getOdd_fixada().getOddx());
-							;
-							break;
-						case DERROTA:
-							premio = (int) (aposta.getM_aposta() * aposta.getOdd_fixada().getOdd2());
-							;
-							break;
-					}
-				}
-				aposta.getApostador().update(premio+"");
+                        
+				aposta.getApostador().update(premio(aposta)+"");
 			}
 		}
 	}

@@ -24,11 +24,10 @@ public class Aposta {
 		this.in = new BufferedReader(new InputStreamReader(System.in));
 		this.out = System.out;
 	}
-
-	public Aposta(Apostador apostador, float m_aposta, char resultado, Odd odd_actual) {
-		this.apostador = apostador;
-		this.m_aposta = m_aposta;
-		switch (resultado) {
+        
+        
+        private void setResultado(char resultado){
+            switch (resultado) {
 			case '1':
 				this.resultado = Evento.Resultado.VITORIA;
 				break;
@@ -39,6 +38,11 @@ public class Aposta {
 				this.resultado = Evento.Resultado.DERROTA;
 				break;
 		}
+        }
+	public Aposta(Apostador apostador, float m_aposta, char resultado, Odd odd_actual) {
+		this.apostador = apostador;
+		this.m_aposta = m_aposta;
+		this.setResultado(resultado);
 		this.odd_fixada = odd_actual.clone();
 		this.in = new BufferedReader(new InputStreamReader(System.in));
 	    this.out = System.out;
@@ -61,6 +65,18 @@ public class Aposta {
 	public Odd getOdd_fixada() {
 		return odd_fixada;
 	}
+        public int getPremio(){
+            switch (this.getResultado()) {
+		case VITORIA:
+                    return (int) (this.getM_aposta() * this.getOdd_fixada().getOdd1());
+		case EMPATE:
+                    return (int) (this.getM_aposta() * this.getOdd_fixada().getOddx());
+		case DERROTA:
+                    return (int) (this.getM_aposta() * this.getOdd_fixada().getOdd2());
+		}
+            return 0;
+        }
+        
 
 	public void setOdd_fixada(Odd odd_fixada) {
 		this.odd_fixada = odd_fixada.clone();
