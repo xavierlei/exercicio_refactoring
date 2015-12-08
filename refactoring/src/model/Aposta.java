@@ -10,7 +10,7 @@ public class Aposta {
 
 	private Apostador apostador;
 	private float m_aposta;
-	private Evento.Resultado resultado;
+	private Resultado resultado;
 	private Odd odd_fixada;
 	private  BufferedReader in;
 	private PrintStream out;
@@ -29,13 +29,13 @@ public class Aposta {
         private void setResultado(char resultado){
             switch (resultado) {
 			case '1':
-				this.resultado = Evento.Resultado.VITORIA;
+				this.resultado = Resultado.VITORIA;
 				break;
 			case 'x':
-				this.resultado = Evento.Resultado.EMPATE;
+				this.resultado = Resultado.EMPATE;
 				break;
 			case '2':
-				this.resultado = Evento.Resultado.DERROTA;
+				this.resultado = Resultado.DERROTA;
 				break;
 		}
         }
@@ -54,7 +54,7 @@ public class Aposta {
 		return apostador;
 	}
 
-	public Evento.Resultado getResultado() {
+	public Resultado getResultado() {
 		return resultado;
 	}
 
@@ -90,7 +90,7 @@ public class Aposta {
 		this.apostador = apostador;
 	}
 
-	public void setResultado(Evento.Resultado resultado) {
+	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
 	}
 
@@ -107,13 +107,13 @@ public class Aposta {
 
 			switch (tokens[1]) {
 				case "1":
-					this.setResultado(Evento.Resultado.VITORIA);
+					this.setResultado(Resultado.VITORIA);
 					break;
 				case "x":
-					this.setResultado(Evento.Resultado.EMPATE);
+					this.setResultado(Resultado.EMPATE);
 					break;
 				case "2":
-					this.setResultado(Evento.Resultado.DERROTA);
+					this.setResultado(Resultado.DERROTA);
 					break;
 			}
 

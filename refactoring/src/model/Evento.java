@@ -12,11 +12,6 @@ import java.time.Instant;
 
 public class Evento implements Subject {
 
-	public enum Resultado {
-		VITORIA,
-		DERROTA,
-		EMPATE
-	}
 
 	private static AtomicInteger uniqueId=new AtomicInteger();
 
@@ -125,15 +120,12 @@ public class Evento implements Subject {
             return 0;
         }
 	public void notifyApostadores() {
-		int premio = 0;
 		if (!this.isOpen){
                     Enumeration<Aposta> lista_apostas = this.listaApostas.elements();
                     while (lista_apostas.hasMoreElements()) {
 			Aposta aposta = lista_apostas.nextElement();
-
-                        
-				aposta.getApostador().update(premio(aposta)+"");
-			}
+			aposta.getApostador().update(premio(aposta)+"");
+                    }
 		}
 	}
 
