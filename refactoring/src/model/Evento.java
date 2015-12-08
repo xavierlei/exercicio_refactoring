@@ -1,3 +1,7 @@
+package model;
+
+import model.Apostador;
+import model.Aposta;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

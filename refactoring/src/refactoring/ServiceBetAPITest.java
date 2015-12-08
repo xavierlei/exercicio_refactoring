@@ -1,3 +1,7 @@
+
+import model.Evento;
+import model.Apostador;
+
 public class ServiceBetAPITest {
 
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+package model;
+
 public class Odd {
 
 	private float odd1;

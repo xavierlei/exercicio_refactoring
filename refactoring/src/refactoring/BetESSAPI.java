@@ -1,4 +1,6 @@
 
+import model.Evento;
+import model.Apostador;
 import java.time.Instant;
 import java.util.*;
 import java.io.BufferedReader;
