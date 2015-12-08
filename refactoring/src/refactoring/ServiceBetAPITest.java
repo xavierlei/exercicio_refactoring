@@ -1,6 +1,9 @@
+package refactoring;
+
 
 import model.Evento;
 import model.Apostador;
+import refactoring.BetESSAPI;
 
 public class ServiceBetAPITest {
 
