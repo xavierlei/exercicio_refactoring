@@ -1,6 +1,7 @@
 package Controller;
 
 
+import View.View;
 import model.Evento;
 import model.Apostador;
 import java.time.Instant;
@@ -12,15 +13,14 @@ import model.Bookie;
 import model.Subject;
 import model.Observer;
 
-public class BetESSAPI implements Subject {
+public class BetESSAPI implements ControllerObserver{
 
 	private Vector<Evento> listaEventos;
 	private Vector<Apostador> listaApostadores;
         private HashMap<String,Bookie> listaBookies;
 	private double betESStotal;
 	private String name;
-        private ArrayList<Observer> observersApostadores;
-        private ArrayList<Observer> observersUI;
+        private View observerUI;
         
 
 	private final BufferedReader in;
@@ -34,8 +34,6 @@ public class BetESSAPI implements Subject {
 		this.name = "BetESSAPI";
 		this.in = new BufferedReader(new InputStreamReader(System.in));
 		this.out = System.out;
-                this.observersUI = new ArrayList<Observer>();
-                this.observersApostadores = new ArrayList<Observer>();
 	}
         //interface sobre bookies
         public Bookie loginBookie(String nome){
@@ -60,14 +58,27 @@ public class BetESSAPI implements Subject {
 
 	public boolean actualizaOdd(Evento evento, float odd_1, float odd_x, float odd_2){
                 boolean b  = evento.actualizaOdd(odd_1,odd_x,odd_2);
-                this.notifyUI();
+                this.notifyUI(null);
 		return b;
                 
 	}
+        public void observarEvento(Evento e, Bookie b){
+            e.addObserverBookie(b);
+        }
 
 	public boolean  fechaEvento(Evento evento, char resultado){
-		return evento.fechaEvento(resultado);
+                boolean b = evento.fechaEvento(resultado);
+                this.notifyUI(null);
+		return b;
 	}
+        public void apagarEvento(Evento e){
+            for(Evento ev : this.listaEventos){
+                if(e.getId() == ev.getId()){
+                    listaEventos.remove(ev);
+                    this.notifyUI(null);
+                }
+            }
+        }
 
 	public void viewEventos(){
 
@@ -82,7 +93,7 @@ public class BetESSAPI implements Subject {
 
 		Evento aposta = new Evento(equipa1,equipa2, Date.from(Instant.now()));
 		this.listaEventos.add(aposta);
-                this.notifyUI();
+                this.notifyUI(null);
 		return aposta;
 	}
 
@@ -160,21 +171,18 @@ public class BetESSAPI implements Subject {
 				'}';
 	}
 
+    public void addObserverUI(View view){
+        this.observerUI = view;
+    }
+    public void notifyUI(String message) {
+        this.observerUI.updateView(message);
+    }
+
+
     @Override
-    public void notifyApostadores() {
-        for(Observer e : this.observersApostadores)
-            e.update(null);
-    }
-    
-    public void addObserverApostador(Observer obs){
-        this.observersApostadores.add(obs);
-    }
-    public void addObserverUI(Observer obs){
-        this.observersUI.add(obs);
-    }
-    public void notifyUI() {
-        for(Observer e : this.observersUI)
-            e.update(null);
+    public void updateToUpperLevel(String notification) {
+       this.notifyUI(notification);
+       System.out.println("mandou para cima");
     }
 
 

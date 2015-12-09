@@ -5,13 +5,18 @@
  */
 package model;
 
+import Controller.ControllerObserver;
+import View.ModelSubject;
+
+
 /**
  *
  * @author xavier
  */
-public class Bookie {
+public class Bookie implements Observer, ModelSubject {
     private String nome;
     private String email;
+    private ControllerObserver c;
     
     public Bookie(){
         this.nome = "John Doe";
@@ -25,4 +30,22 @@ public class Bookie {
     public String getNome(){return this.nome;}
     public void setEmail(String email){this.email = email;}
     public void setNome(String nome){this.nome = nome;}
+
+    @Override
+    public void update(String notificacao) {
+        System.out.println(notificacao);
+        notifyController(notificacao);
+    }
+
+    @Override
+    public void notifyController(String message) {
+        c.updateToUpperLevel(message);
+    }
+
+    @Override
+    public void addController(ControllerObserver c) {
+        this.c = c;
+        System.out.println("adicionou");
+    }
+    
 }

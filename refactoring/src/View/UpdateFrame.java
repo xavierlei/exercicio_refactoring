@@ -31,6 +31,7 @@ public class UpdateFrame extends javax.swing.JFrame {
         this.oddVitoria.setText(new Float(evento.getOdd().getOdd1()).toString());
         this.OddEmpate.setText(new Float(evento.getOdd().getOddx()).toString());
         this.oddDerrota.setText(new Float(evento.getOdd().getOdd2()).toString());
+        this.jCheckBoxOpen.setSelected(this.evento.getEstado());
     }
 
     /**
@@ -53,6 +54,7 @@ public class UpdateFrame extends javax.swing.JFrame {
         oddDerrota = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jCheckBoxOpen = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +83,8 @@ public class UpdateFrame extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jCheckBoxOpen.setText("open");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,6 +122,10 @@ public class UpdateFrame extends javax.swing.JFrame {
                                         .addComponent(jButton2))))))
                     .addComponent(jLabel7))
                 .addGap(84, 84, 84))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jCheckBoxOpen)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +145,9 @@ public class UpdateFrame extends javax.swing.JFrame {
                     .addComponent(oddVitoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(OddEmpate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(oddDerrota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxOpen)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -148,6 +158,10 @@ public class UpdateFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(this.jCheckBoxOpen.isSelected())
+            this.evento.setEstado(true);
+        else 
+            this.evento.setEstado(false);
         this.controller.actualizaOdd(this.evento, new Float(this.oddVitoria.getText()),
                 new Float(this.OddEmpate.getText()), new Float(this.oddDerrota.getText()));
         this.dispose();
@@ -196,6 +210,7 @@ public class UpdateFrame extends javax.swing.JFrame {
     private javax.swing.JTextField OddEmpate;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBoxOpen;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -25,6 +25,8 @@ public class Evento implements Subject {
 	private final PrintStream out;
 	private boolean isOpen;
 	private Odd odds;
+        private ArrayList<Observer> observersApostadores;
+        private ArrayList<Observer> observersBookies;
 
 	public Evento(String equipa1, String equipa2, Date data) {
 		this.equipa1 = equipa1;
@@ -35,6 +37,8 @@ public class Evento implements Subject {
 		this.id=uniqueId.getAndIncrement();
 		this.odds = new Odd();
 		this.listaApostas = new Vector<Aposta>();
+                this.observersApostadores = new ArrayList<Observer>();
+                this.observersBookies = new ArrayList<Observer>();
 
 		this.in = new BufferedReader(new InputStreamReader(System.in));
 		this.out = System.out;
@@ -90,11 +94,13 @@ public class Evento implements Subject {
                     break;
             }
         }
+        public Resultado getResultado(){return this.resultado_final;}
         
 	public boolean fechaEvento(char resultadofinal){
 		this.setResultado(resultadofinal);
 		this.isOpen = false;
 		this.notifyApostadores();
+                this.notifyBookies("O Evento "+this.getId()+" terminou!");
 		return true;
 	}
 
@@ -113,13 +119,16 @@ public class Evento implements Subject {
 		this.odds.setOddx(oddx);
 		this.odds.setOdd1(odd1);
 		this.odds.setOdd2(odd2);
+                this.notifyBookies("a odd do evento "+this.getId()+" foi alterada!");
 		return true;
 	}
 
-	public void setEstado() {
+	public void setEstado(boolean estado) {
 		// TODO - implement Aposta.setEstado
+            this.isOpen = estado;
 
 	}
+        public boolean getEstado(){return this.isOpen;}
         private int premio(Aposta aposta){
             if (this.resultado_final == aposta.getResultado()) {
                 return aposta.getPremio();
@@ -194,6 +203,25 @@ public class Evento implements Subject {
 		this.out.println("Remover Apostador" + this.viewEvento());
 
 	}
+
+    @Override
+    public void notifyBookies(String notification) {
+        for(Observer obs : this.observersBookies){
+            obs.update(notification);
+        }
+    }
+
+    @Override
+    public void addObserverApostador(model.Observer obs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addObserverBookie(model.Observer obs) {
+        if(!this.observersBookies.contains(obs))
+            this.observersBookies.add(obs);
+    }
+    
 
 
 }
