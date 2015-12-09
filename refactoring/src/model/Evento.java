@@ -57,6 +57,9 @@ public class Evento implements Subject {
 	public void setEquipa1(String equipa1) {
 		this.equipa1 = equipa1;
 	}
+        public String getEquipa1() {
+		return this.equipa1;
+	}
 
 	public String getEquipa2() {
 		return this.equipa2;
@@ -65,10 +68,14 @@ public class Evento implements Subject {
 	public void setEquipa2(String equipa2) {
 		this.equipa2 = equipa2;
 	}
-
+        public Odd getOdd(){return this.odds;}
 	public void setDataEvento(Date dataEvento) {
 		this.dataEvento = dataEvento;
 	}
+        public Date getDataEvento(){
+            return this.dataEvento;
+        }
+        public int getId(){return this.id;}
 
         public void setResultado(char resultado){
             switch (resultado) {
@@ -102,7 +109,7 @@ public class Evento implements Subject {
 
 	}
 
-	public boolean actualizaOdd(int odd1, int oddx, int odd2 ){
+	public boolean actualizaOdd(float odd1, float oddx, float odd2 ){
 		this.odds.setOddx(oddx);
 		this.odds.setOdd1(odd1);
 		this.odds.setOdd2(odd2);

@@ -62,10 +62,6 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldName.setText("jTextField1");
-
-        jTextFieldEmail.setText("jTextField2");
-
         jRadioButtonBookie.setText("Bookie");
         jRadioButtonBookie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,8 +83,6 @@ public class LoginJFrame extends javax.swing.JFrame {
                 jToggleButtonRegisterActionPerformed(evt);
             }
         });
-
-        jTextFieldCoins.setText("jTextField1");
 
         jLabel3.setText("coins:");
 
@@ -168,6 +162,9 @@ public class LoginJFrame extends javax.swing.JFrame {
             if(bookie !=null){
                 //lança janela bookies;
                 System.out.println(bookie.getNome());
+                BookieUI bookieUI = new BookieUI(this.controller,bookie);
+                bookieUI.setVisible(true);
+                this.dispose();
             }
         }
     }//GEN-LAST:event_loginButtonActionPerformed

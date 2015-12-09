@@ -9,14 +9,19 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import model.Bookie;
+import model.Subject;
+import model.Observer;
 
-public class BetESSAPI {
+public class BetESSAPI implements Subject {
 
 	private Vector<Evento> listaEventos;
 	private Vector<Apostador> listaApostadores;
         private HashMap<String,Bookie> listaBookies;
 	private double betESStotal;
 	private String name;
+        private ArrayList<Observer> observersApostadores;
+        private ArrayList<Observer> observersUI;
+        
 
 	private final BufferedReader in;
 	private final PrintStream out;
@@ -29,6 +34,8 @@ public class BetESSAPI {
 		this.name = "BetESSAPI";
 		this.in = new BufferedReader(new InputStreamReader(System.in));
 		this.out = System.out;
+                this.observersUI = new ArrayList<Observer>();
+                this.observersApostadores = new ArrayList<Observer>();
 	}
         //interface sobre bookies
         public Bookie loginBookie(String nome){
@@ -51,9 +58,11 @@ public class BetESSAPI {
 
 	// Interface sobre Eventos
 
-	public boolean actualizaOdd(Evento evento, int odd_1, int odd_x, int odd_2){
-
-		return evento.actualizaOdd(odd_1,odd_x,odd_2);
+	public boolean actualizaOdd(Evento evento, float odd_1, float odd_x, float odd_2){
+                boolean b  = evento.actualizaOdd(odd_1,odd_x,odd_2);
+                this.notifyUI();
+		return b;
+                
 	}
 
 	public boolean  fechaEvento(Evento evento, char resultado){
@@ -67,11 +76,13 @@ public class BetESSAPI {
 			System.out.println(listIterator.next().viewEvento());
 		}
 	}
+        public Vector<Evento> getEventos(){return this.listaEventos;}
 
 	public Evento registaEvento(String equipa1, String equipa2) {
 
 		Evento aposta = new Evento(equipa1,equipa2, Date.from(Instant.now()));
 		this.listaEventos.add(aposta);
+                this.notifyUI();
 		return aposta;
 	}
 
@@ -148,6 +159,23 @@ public class BetESSAPI {
 				", betESStotal=" + betESStotal +
 				'}';
 	}
+
+    @Override
+    public void notifyApostadores() {
+        for(Observer e : this.observersApostadores)
+            e.update(null);
+    }
+    
+    public void addObserverApostador(Observer obs){
+        this.observersApostadores.add(obs);
+    }
+    public void addObserverUI(Observer obs){
+        this.observersUI.add(obs);
+    }
+    public void notifyUI() {
+        for(Observer e : this.observersUI)
+            e.update(null);
+    }
 
 
 }
