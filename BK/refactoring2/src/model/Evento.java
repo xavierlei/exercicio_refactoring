@@ -25,9 +25,8 @@ public class Evento implements Subject {
 	private final PrintStream out;
 	private boolean isOpen;
 	private Odd odds;
-        private HashMap<String,ArrayList<Observer>> observers;
-        //private ArrayList<Observer> observersApostadores;
-        //private ArrayList<Observer> observersBookies;
+        private ArrayList<Observer> observersApostadores;
+        private ArrayList<Observer> observersBookies;
 
 	public Evento(String equipa1, String equipa2, Date data) {
 		this.equipa1 = equipa1;
@@ -38,9 +37,9 @@ public class Evento implements Subject {
 		this.id=uniqueId.getAndIncrement();
 		this.odds = new Odd();
 		this.listaApostas = new Vector<Aposta>();
-                //this.observersApostadores = new ArrayList<Observer>();
-                //this.observersBookies = new ArrayList<Observer>();
-                this.observers = new HashMap<String,ArrayList<Observer>>();
+                this.observersApostadores = new ArrayList<Observer>();
+                this.observersBookies = new ArrayList<Observer>();
+
 		this.in = new BufferedReader(new InputStreamReader(System.in));
 		this.out = System.out;
 	}
@@ -101,8 +100,7 @@ public class Evento implements Subject {
 		this.setResultado(resultadofinal);
 		this.isOpen = false;
 		this.notifyApostadores();
-                this.notify("bookies","O Evento "+this.getId()+" terminou!");
-                //this.notifyBookies("O Evento "+this.getId()+" terminou!");
+                this.notifyBookies("O Evento "+this.getId()+" terminou!");
 		return true;
 	}
 
@@ -121,8 +119,7 @@ public class Evento implements Subject {
 		this.odds.setOddx(oddx);
 		this.odds.setOdd1(odd1);
 		this.odds.setOdd2(odd2);
-                this.notify("bookies","a odd do evento "+this.getId()+" foi alterada!");
-                //this.notifyBookies("a odd do evento "+this.getId()+" foi alterada!");
+                this.notifyBookies("a odd do evento "+this.getId()+" foi alterada!");
 		return true;
 	}
 
@@ -226,25 +223,14 @@ public class Evento implements Subject {
     }*/
 
     @Override
-    public void notify(String category,String message) {
-        if(this.observers.containsKey(category)){
-            for(Observer o : this.observers.get(category))
-                o.update(message);
-        }
+    public void notify(String category) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void addObserver(String category, model.Observer o) {
-        if(this.observers.containsKey(category)){
-            this.observers.get(category).add(o);
-        }
-        else{
-            ArrayList<Observer> obs = new ArrayList<Observer>();
-            obs.add(o);
-            this.observers.put(category, obs);
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     
 
 

@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.BookieView;
 
+import View.NotificationFrame;
 import Controller.BetESSAPI;
+import View.View;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -41,8 +43,6 @@ public class BookieUI extends javax.swing.JFrame implements View {
         this.controller.registaEvento("braga","bcl");
         this.controller.registaEvento("braga","bcl");
         this.updateView(null);
-        
-
     }
 
     /**
@@ -280,7 +280,7 @@ public class BookieUI extends javax.swing.JFrame implements View {
     private javax.swing.JToggleButton jToggleButtonObserve;
     // End of variables declaration//GEN-END:variables
 
-
+    
     public void updateView(String message) {
         Vector<Evento> eventos;
         if(message!=null){

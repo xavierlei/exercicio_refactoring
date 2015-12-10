@@ -2,7 +2,7 @@ package model;
 
 public interface Subject {
     
-        void notify(String category, String message);
+        void notify(String category);
         void addObserver(String category, Observer o);
 	/*void notifyApostadores();
         void notifyBookies(String notification);

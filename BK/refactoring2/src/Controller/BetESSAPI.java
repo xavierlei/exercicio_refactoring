@@ -13,7 +13,7 @@ import model.Bookie;
 import model.Subject;
 import model.Observer;
 
-public class BetESSAPI implements Observer {
+public class BetESSAPI implements ControllerObserver{
 
 	private Vector<Evento> listaEventos;
 	private Vector<Apostador> listaApostadores;
@@ -63,7 +63,7 @@ public class BetESSAPI implements Observer {
                 
 	}
         public void observarEvento(Evento e, Bookie b){
-            e.addObserver("bookies", b);
+            e.addObserverBookie(b);
         }
 
 	public boolean  fechaEvento(Evento evento, char resultado){
@@ -178,9 +178,11 @@ public class BetESSAPI implements Observer {
         this.observerUI.updateView(message);
     }
 
+
     @Override
-    public void update(String notificacao) {
-        this.notifyUI(notificacao);
+    public void updateToUpperLevel(String notification) {
+       this.notifyUI(notification);
+       System.out.println("mandou para cima");
     }
 
 
