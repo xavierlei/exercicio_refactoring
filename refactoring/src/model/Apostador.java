@@ -61,7 +61,7 @@ public class Apostador implements Observer{
 	}
 
 	@Override
-	public void update(String notificacao) {
+	public void updateObserver(String notificacao) {
 
 
 		System.out.println("\nApostador(" + this.name + "):" + notificacao + "\n");
@@ -116,5 +116,12 @@ public class Apostador implements Observer{
 		return view;
 
 	}
+        
+        public boolean equals(Object o){
+            if(o.getClass()!=this.getClass())
+                return false;
+            Apostador a = (Apostador) o;
+            return (this.name == a.getName());
+        }
 
 }

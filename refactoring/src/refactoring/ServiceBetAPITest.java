@@ -32,10 +32,16 @@ public class ServiceBetAPITest {
         casaApostas.viewEventos();
         casaApostas.viewApostadores();
 
+        
+        
         // Registar apostas
-        casaApostas.registaAposta(apostador1, evento1);
+     /*   casaApostas.registaAposta(apostador1, evento1);
         casaApostas.registaAposta(apostador1, evento2);
-
+*/
+             
+             
+             
+             
         // fechar eventos
         casaApostas.fechaEvento(evento1, 'x');
         casaApostas.fechaEvento(evento2, 'x');

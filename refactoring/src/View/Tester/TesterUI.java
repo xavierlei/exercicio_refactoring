@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.BookieView;
+package View.Tester;
 
+import View.BookieView.*;
 import View.NotificationFrame;
 import Controller.BetESSAPI;
-import View.LoginJFrame;
 import View.View;
 import java.util.Date;
 import java.util.Vector;
@@ -21,7 +21,7 @@ import model.Resultado;
  *
  * @author xavier
  */
-public class BookieUI extends javax.swing.JFrame implements Observer {
+public class TesterUI extends javax.swing.JFrame implements Observer {
     
     private BetESSAPI controller;
     private Bookie me;
@@ -29,21 +29,14 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     /**
      * Creates new form BookieUI
      */
-    public BookieUI() {
+    public TesterUI() {
         initComponents();
     }
-    public BookieUI(BetESSAPI controller, Bookie bookie) {
+    public TesterUI(BetESSAPI controller) {
         initComponents();
         this.controller = controller;
-        this.me = bookie;
-        me.addObserver(null,this);
-        this.jLabelNome.setText(this.me.getNome());
-        this.jLabelEmail.setText(this.me.getEmail());
-        this.controller.addObserver("bookies",this);
-        Evento e1 = this.controller.registaEvento("braga","bcl"); e1.setOdds(2, 4, 6);
-        Evento e2 = this.controller.registaEvento("braga","bcl"); e2.setOdds(3, 5, 1);
-        Evento e3 = this.controller.registaEvento("braga","bcl"); e3.setOdds(8, 2, 4);
-        updateObserver(null);
+        this.controller.addObserver(null,this);
+        this.updateObserver(null);
     }
 
     /**
@@ -55,22 +48,15 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelNome = new javax.swing.JLabel();
-        jLabelEmail = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEventos = new javax.swing.JTable();
-        jToggleButtonNew = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButtonEnd = new javax.swing.JToggleButton();
         jToggleButtonDelete = new javax.swing.JToggleButton();
-        jToggleButtonObserve = new javax.swing.JToggleButton();
         exitBT = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabelNome.setText("jLabel1");
-
-        jLabelEmail.setText("jLabel1");
 
         jTableEventos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,13 +79,6 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
         });
         jScrollPane1.setViewportView(jTableEventos);
 
-        jToggleButtonNew.setText("new");
-        jToggleButtonNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonNewActionPerformed(evt);
-            }
-        });
-
         jToggleButton2.setText("update");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,13 +100,6 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
             }
         });
 
-        jToggleButtonObserve.setText("observe");
-        jToggleButtonObserve.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonObserveActionPerformed(evt);
-            }
-        });
-
         exitBT.setText("exit");
         exitBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,65 +107,49 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        jLabel1.setText("This is a tester interface");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelEmail)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jToggleButtonObserve)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButtonEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButtonNew)
-                .addGap(26, 26, 26))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(exitBT)
                 .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jToggleButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButtonEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton2))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelEmail)
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jToggleButtonNew)
-                        .addComponent(jToggleButton2)
-                        .addComponent(jToggleButtonEnd)
-                        .addComponent(jToggleButtonDelete)
-                        .addComponent(jToggleButtonObserve)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton2)
+                    .addComponent(jToggleButtonEnd)
+                    .addComponent(jToggleButtonDelete)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(exitBT)
                 .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jToggleButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonNewActionPerformed
-        NewEventForm novoEventoUI = new NewEventForm(this.controller);
-        novoEventoUI.setVisible(true);
-    }//GEN-LAST:event_jToggleButtonNewActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         if(this.jTableEventos.getSelectedRow()>-1){
@@ -220,19 +176,9 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jToggleButtonDeleteActionPerformed
 
     private void exitBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBTActionPerformed
-        LoginJFrame login = new LoginJFrame(this.controller);
-        login.setVisible(rootPaneCheckingEnabled);
         this.dispose();
+        System.exit(WIDTH);
     }//GEN-LAST:event_exitBTActionPerformed
-
-    private void jToggleButtonObserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonObserveActionPerformed
-        if(this.jTableEventos.getSelectedRow()>-1){
-            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            this.controller.observarEvento(e, me,"bookies");
-            NotificationFrame n = new NotificationFrame("Está agora a observar o evento "+e.getId()+"!");
-            n.setVisible(rootPaneCheckingEnabled);
-        }
-    }//GEN-LAST:event_jToggleButtonObserveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,46 +197,40 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BookieUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TesterUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BookieUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TesterUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BookieUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TesterUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BookieUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TesterUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookieUI().setVisible(true);
+                new TesterUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton exitBT;
-    private javax.swing.JLabel jLabelEmail;
-    private javax.swing.JLabel jLabelNome;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableEventos;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButtonDelete;
     private javax.swing.JToggleButton jToggleButtonEnd;
-    private javax.swing.JToggleButton jToggleButtonNew;
-    private javax.swing.JToggleButton jToggleButtonObserve;
     // End of variables declaration//GEN-END:variables
 
     
+     @Override
     public void updateObserver(String notificacao) {
         Vector<Evento> eventos;
-        if(notificacao!=null){
-            System.out.println("mensagem: "+notificacao);
-            NotificationFrame nf = new NotificationFrame(notificacao);
-            nf.setVisible(rootPaneCheckingEnabled);
-        }
-        try{
+            try{
                 eventos = this.controller.getEventos();
                 DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
                 this.jTableEventos.setModel(model);
@@ -319,7 +259,7 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
             return "derrota";		
     }
 
-    
+
    
 }
 

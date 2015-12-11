@@ -31,7 +31,7 @@ public class Bookie implements Observer, Subject {
     public void setNome(String nome){this.nome = nome;}
 
     @Override
-    public void update(String notificacao) {
+    public void updateObserver(String notificacao) {
         System.out.println(notificacao);
         this.notify(null,notificacao);
     }
@@ -39,7 +39,7 @@ public class Bookie implements Observer, Subject {
 
     @Override
     public void notify(String category, String message) {
-        this.observador.update(message);
+        this.observador.updateObserver(message);
     }
 
     @Override

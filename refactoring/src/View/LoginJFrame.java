@@ -9,6 +9,7 @@ import Controller.BetESSAPI;
 import View.ApostadorView.ApostadorUI;
 import View.BookieView.BookieUI;
 import View.BookieView.BookieUI;
+import View.Tester.TesterUI;
 import model.Apostador;
 import model.Bookie;
 
@@ -26,6 +27,12 @@ public class LoginJFrame extends javax.swing.JFrame {
     public LoginJFrame() {
         initComponents();
         this.controller = new BetESSAPI();
+        TesterUI tester = new TesterUI(this.controller);
+        tester.setVisible(rootPaneCheckingEnabled);
+    }
+    public LoginJFrame(BetESSAPI controller) {
+        initComponents();
+        this.controller = controller;
     }
 
     /**

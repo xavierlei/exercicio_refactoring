@@ -6,18 +6,20 @@
 package View.ApostadorView;
 
 import Controller.BetESSAPI;
+import View.LoginJFrame;
 import View.NotificationFrame;
 import View.View;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.Apostador;
 import model.Evento;
+import model.Observer;
 
 /**
  *
  * @author xavier
  */
-public class ApostadorUI extends javax.swing.JFrame implements View {
+public class ApostadorUI extends javax.swing.JFrame implements Observer {
     
     private BetESSAPI controller;
     private Apostador me;
@@ -31,14 +33,11 @@ public class ApostadorUI extends javax.swing.JFrame implements View {
         initComponents();
         this.controller = controller;
         this.me = a;
-        this.controller.addObserverUI(this);
+        this.controller.addObserver("apostadores",this);
         this.jLabelNome.setText(this.me.getName());
         this.jLabelMail.setText((this.me.getEmail()));
         this.jLabelCoins.setText(this.me.getBetESScoins()+" betEssCoins");
-        this.controller.registaEvento("braga","bcl");
-        this.controller.registaEvento("braga","bcl");
-        this.controller.registaEvento("braga","bcl");
-        this.updateView(null);
+        this.updateObserver(null);
     }
 
     /**
@@ -55,10 +54,9 @@ public class ApostadorUI extends javax.swing.JFrame implements View {
         jLabelCoins = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEventos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableApostas = new javax.swing.JTable();
+        jButtonBet = new javax.swing.JButton();
+        jToggleButtonObserve = new javax.swing.JToggleButton();
+        jToggleButtonExit = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,22 +79,21 @@ public class ApostadorUI extends javax.swing.JFrame implements View {
         ));
         jScrollPane1.setViewportView(jTableEventos);
 
-        jButton1.setText("bet");
-
-        jToggleButton1.setText("observe");
-
-        jTableApostas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "evento", "resultado", "odd", "aposta"
+        jButtonBet.setText("bet");
+        jButtonBet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBetActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(jTableApostas);
+        });
+
+        jToggleButtonObserve.setText("observe");
+
+        jToggleButtonExit.setText("exit");
+        jToggleButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,20 +102,22 @@ public class ApostadorUI extends javax.swing.JFrame implements View {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(103, 103, 103)
                         .addComponent(jLabelCoins)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelMail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButtonObserve, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButtonBet)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jToggleButtonExit))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,17 +129,31 @@ public class ApostadorUI extends javax.swing.JFrame implements View {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMail)
-                    .addComponent(jButton1)
-                    .addComponent(jToggleButton1))
+                    .addComponent(jButtonBet)
+                    .addComponent(jToggleButtonObserve))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButtonExit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonBetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBetActionPerformed
+        if(this.jTableEventos.getSelectedRow()>-1){
+            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
+            BetFrame betframe = new BetFrame(this.controller,me,e);
+            betframe.setVisible(rootPaneCheckingEnabled);
+        }
+    }//GEN-LAST:event_jButtonBetActionPerformed
+
+    private void jToggleButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonExitActionPerformed
+        LoginJFrame login = new LoginJFrame(this.controller);
+        login.setVisible(rootPaneCheckingEnabled);
+        this.dispose();
+    }//GEN-LAST:event_jToggleButtonExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,19 +191,18 @@ public class ApostadorUI extends javax.swing.JFrame implements View {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonBet;
     private javax.swing.JLabel jLabelCoins;
     private javax.swing.JLabel jLabelMail;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableApostas;
     private javax.swing.JTable jTableEventos;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButtonExit;
+    private javax.swing.JToggleButton jToggleButtonObserve;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void updateView(String message) {
+    public void updateObserver(String message) {
         Vector<Evento> eventos;
         
             try{

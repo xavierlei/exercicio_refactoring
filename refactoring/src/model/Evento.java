@@ -26,8 +26,7 @@ public class Evento implements Subject {
 	private boolean isOpen;
 	private Odd odds;
         private HashMap<String,ArrayList<Observer>> observers;
-        //private ArrayList<Observer> observersApostadores;
-        //private ArrayList<Observer> observersBookies;
+
 
 	public Evento(String equipa1, String equipa2, Date data) {
 		this.equipa1 = equipa1;
@@ -38,8 +37,7 @@ public class Evento implements Subject {
 		this.id=uniqueId.getAndIncrement();
 		this.odds = new Odd();
 		this.listaApostas = new Vector<Aposta>();
-                //this.observersApostadores = new ArrayList<Observer>();
-                //this.observersBookies = new ArrayList<Observer>();
+
                 this.observers = new HashMap<String,ArrayList<Observer>>();
 		this.in = new BufferedReader(new InputStreamReader(System.in));
 		this.out = System.out;
@@ -102,19 +100,11 @@ public class Evento implements Subject {
 		this.isOpen = false;
 		this.notifyApostadores();
                 this.notify("bookies","O Evento "+this.getId()+" terminou!");
-                //this.notifyBookies("O Evento "+this.getId()+" terminou!");
 		return true;
 	}
 
-	public void registaAposta(Apostador apostador) {
-
-		Aposta aposta = new Aposta();
-		aposta.viewCreateAposta();
-		aposta.setApostador(apostador);
-		aposta.setOdd_fixada(this.odds);
-
+	public void registaAposta(Aposta aposta) {
 		this.listaApostas.add(aposta);
-
 	}
 
 	public boolean actualizaOdd(float odd1, float oddx, float odd2 ){
@@ -122,7 +112,6 @@ public class Evento implements Subject {
 		this.odds.setOdd1(odd1);
 		this.odds.setOdd2(odd2);
                 this.notify("bookies","a odd do evento "+this.getId()+" foi alterada!");
-                //this.notifyBookies("a odd do evento "+this.getId()+" foi alterada!");
 		return true;
 	}
 
@@ -143,7 +132,7 @@ public class Evento implements Subject {
                     Enumeration<Aposta> lista_apostas = this.listaApostas.elements();
                     while (lista_apostas.hasMoreElements()) {
 			Aposta aposta = lista_apostas.nextElement();
-			aposta.getApostador().update(premio(aposta)+"");
+			aposta.getApostador().updateObserver(premio(aposta)+"");
                     }
 		}
 	}
@@ -206,30 +195,12 @@ public class Evento implements Subject {
 		this.out.println("Remover Apostador" + this.viewEvento());
 
 	}
-/*
-    @Override
-    public void notifyBookies(String notification) {
-        for(Observer obs : this.observersBookies){
-            obs.update(notification);
-        }
-    }
-
-    @Override
-    public void addObserverApostador(model.Observer obs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addObserverBookie(model.Observer obs) {
-        if(!this.observersBookies.contains(obs))
-            this.observersBookies.add(obs);
-    }*/
 
     @Override
     public void notify(String category,String message) {
         if(this.observers.containsKey(category)){
             for(Observer o : this.observers.get(category))
-                o.update(message);
+                o.updateObserver(message);
         }
     }
 

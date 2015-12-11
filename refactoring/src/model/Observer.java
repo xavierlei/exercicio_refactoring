@@ -2,6 +2,6 @@ package model;
 
 public interface Observer {
 
-	void update(String notificacao);
+	void updateObserver(String notificacao);
 
 }
