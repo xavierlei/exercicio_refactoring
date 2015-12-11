@@ -34,6 +34,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
         this.controller = controller;
         this.me = a;
         this.controller.addObserver("apostadores",this);
+        this.me.addObserver(null, this);
         this.jLabelNome.setText(this.me.getName());
         this.jLabelMail.setText((this.me.getEmail()));
         this.jLabelCoins.setText(this.me.getBetESScoins()+" betEssCoins");
@@ -87,6 +88,11 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
         });
 
         jToggleButtonObserve.setText("observe");
+        jToggleButtonObserve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonObserveActionPerformed(evt);
+            }
+        });
 
         jToggleButtonExit.setText("exit");
         jToggleButtonExit.addActionListener(new java.awt.event.ActionListener() {
@@ -155,6 +161,15 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
         this.dispose();
     }//GEN-LAST:event_jToggleButtonExitActionPerformed
 
+    private void jToggleButtonObserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonObserveActionPerformed
+        if(this.jTableEventos.getSelectedRow()>-1){
+            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
+            this.controller.observarEvento(e, me,"apostadores");
+            NotificationFrame n = new NotificationFrame("Está agora a observar o evento "+e.getId()+"!");
+            n.setVisible(rootPaneCheckingEnabled);
+        }
+    }//GEN-LAST:event_jToggleButtonObserveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -202,9 +217,13 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void updateObserver(String message) {
+    public void updateObserver(String notificacao) {
         Vector<Evento> eventos;
-        
+        if(notificacao!=null){
+            System.out.println("mensagem: "+notificacao);
+            NotificationFrame nf = new NotificationFrame(notificacao);
+            nf.setVisible(rootPaneCheckingEnabled);
+        }
             try{
                 eventos = this.controller.getEventos();
                 DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);

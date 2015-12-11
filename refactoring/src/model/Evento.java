@@ -100,6 +100,7 @@ public class Evento implements Subject {
 		this.isOpen = false;
 		this.notifyApostadores();
                 this.notify("bookies","O Evento "+this.getId()+" terminou!");
+                this.notify("apostadores","O Evento "+this.getId()+" terminou!");
 		return true;
 	}
 
@@ -112,6 +113,7 @@ public class Evento implements Subject {
 		this.odds.setOdd1(odd1);
 		this.odds.setOdd2(odd2);
                 this.notify("bookies","a odd do evento "+this.getId()+" foi alterada!");
+                this.notify("apostadores","a odd do evento "+this.getId()+" foi alterada!");
 		return true;
 	}
 
@@ -132,7 +134,7 @@ public class Evento implements Subject {
                     Enumeration<Aposta> lista_apostas = this.listaApostas.elements();
                     while (lista_apostas.hasMoreElements()) {
 			Aposta aposta = lista_apostas.nextElement();
-			aposta.getApostador().updateObserver(premio(aposta)+"");
+			aposta.getApostador().updateObserver("ganhou "+premio(aposta)+" no evento "+this.id);
                     }
 		}
 	}

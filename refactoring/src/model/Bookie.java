@@ -32,7 +32,6 @@ public class Bookie implements Observer, Subject {
 
     @Override
     public void updateObserver(String notificacao) {
-        System.out.println(notificacao);
         this.notify(null,notificacao);
     }
 

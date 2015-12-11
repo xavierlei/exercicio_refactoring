@@ -6,11 +6,12 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 
-public class Apostador implements Observer{
+public class Apostador implements Observer, Subject{
 
 	private String email;
 	private double betESScoins;
 	private String name;
+        private Observer observador;
 	private  BufferedReader in;
 	private  PrintStream out = null;
 
@@ -65,6 +66,7 @@ public class Apostador implements Observer{
 
 
 		System.out.println("\nApostador(" + this.name + "):" + notificacao + "\n");
+                this.notify(null, notificacao);
 	}
 
 
@@ -123,5 +125,15 @@ public class Apostador implements Observer{
             Apostador a = (Apostador) o;
             return (this.name == a.getName());
         }
+
+    @Override
+    public void notify(String category, String message) {
+        this.observador.updateObserver(message);
+    }
+
+    @Override
+    public void addObserver(String category, Observer o) {
+        this.observador = o;
+    }
 
 }
