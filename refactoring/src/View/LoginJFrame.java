@@ -27,8 +27,8 @@ public class LoginJFrame extends javax.swing.JFrame {
     public LoginJFrame() {
         initComponents();
         this.controller = new BetESSAPI();
-        TesterUI tester = new TesterUI(this.controller);
-        tester.setVisible(rootPaneCheckingEnabled);
+        //TesterUI tester = new TesterUI(this.controller);
+        //tester.setVisible(rootPaneCheckingEnabled);
     }
     public LoginJFrame(BetESSAPI controller) {
         initComponents();
@@ -94,6 +94,8 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldCoins.setToolTipText("");
+
         jLabel3.setText("coins:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,11 +107,9 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButtonApostador)
-                                    .addComponent(jRadioButtonBookie)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButtonApostador)
+                                .addComponent(jRadioButtonBookie))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(loginButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -167,7 +167,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 if(apostador!=null){
                     ApostadorUI apostadorUI = new ApostadorUI(this.controller,apostador);
                     apostadorUI.setVisible(rootPaneCheckingEnabled);
-                    this.dispose();
+                    //this.dispose();
                 }
         }
         else if(jRadioButtonBookie.isSelected()){
@@ -175,7 +175,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             if(bookie !=null){
                 BookieUI bookieUI = new BookieUI(this.controller,bookie);
                 bookieUI.setVisible(true);
-                this.dispose();
+                //this.dispose();
             }
         }
     }//GEN-LAST:event_loginButtonActionPerformed

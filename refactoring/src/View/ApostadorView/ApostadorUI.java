@@ -58,6 +58,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
         jButtonBet = new javax.swing.JButton();
         jToggleButtonObserve = new javax.swing.JToggleButton();
         jToggleButtonExit = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +102,13 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
             }
         });
 
+        jButton1.setText("view bets");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,6 +125,8 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelMail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToggleButtonObserve, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonBet)))
@@ -136,7 +146,8 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMail)
                     .addComponent(jButtonBet)
-                    .addComponent(jToggleButtonObserve))
+                    .addComponent(jToggleButtonObserve)
+                    .addComponent(jButton1))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -169,6 +180,14 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
             n.setVisible(rootPaneCheckingEnabled);
         }
     }//GEN-LAST:event_jToggleButtonObserveActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(this.jTableEventos.getSelectedRow()>-1){
+            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
+            ViewBetsFrame mybets = new ViewBetsFrame(e);
+            mybets.setVisible(rootPaneCheckingEnabled);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,6 +225,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBet;
     private javax.swing.JLabel jLabelCoins;
     private javax.swing.JLabel jLabelMail;
