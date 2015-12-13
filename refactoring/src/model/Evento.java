@@ -197,6 +197,14 @@ public class Evento implements Subject {
 		this.out.println("Remover Apostador" + this.viewEvento());
 
 	}
+        public ArrayList<Aposta> getApostas(Apostador apostador){
+            ArrayList<Aposta> res = new ArrayList<Aposta>();
+            for(Aposta a : this.listaApostas){
+                if(a.getApostador().equals(apostador))
+                    res.add(a);
+            }
+            return res;
+        }
 
     @Override
     public void notify(String category,String message) {

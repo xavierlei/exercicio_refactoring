@@ -52,4 +52,7 @@ public class Odd {
 		newOdd.setOddx(this.oddx);
 		return newOdd;
 	}
+        public String toString(){
+            return (this.odd1+" : "+this.oddx+" : "+this.odd2);
+        }
 }

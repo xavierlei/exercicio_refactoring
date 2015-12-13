@@ -184,7 +184,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(this.jTableEventos.getSelectedRow()>-1){
             Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            ViewBetsFrame mybets = new ViewBetsFrame(e);
+            ViewBetsFrame mybets = new ViewBetsFrame(this.controller,e,me);
             mybets.setVisible(rootPaneCheckingEnabled);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

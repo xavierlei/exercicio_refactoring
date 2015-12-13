@@ -148,6 +148,12 @@ public class BetESSAPI implements Subject {
 		return this.listaApostadores.remove(apostador);
 
 	}
+        public ArrayList<Aposta> getApostas(Apostador apostador, Evento e){
+            ArrayList<Aposta> res = new ArrayList<Aposta>();
+                for(Aposta aposta : e.getApostas(apostador))
+                    res.add(aposta);
+            return res;
+        }
         
 
 	// Interface sobre Bookies

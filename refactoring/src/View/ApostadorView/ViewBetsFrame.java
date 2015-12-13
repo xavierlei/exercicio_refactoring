@@ -5,26 +5,38 @@
  */
 package View.ApostadorView;
 
+import Controller.BetESSAPI;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.Aposta;
+import model.Apostador;
 import model.Evento;
+import model.Resultado;
 
 /**
  *
  * @author xavier
  */
 public class ViewBetsFrame extends javax.swing.JFrame {
+    BetESSAPI controller;
     Evento evento;
+    Apostador apostador;
     /**
      * Creates new form ViewBetsFrame
      */
     public ViewBetsFrame() {
         initComponents();
     }
-    public ViewBetsFrame(Evento e) {
+    public ViewBetsFrame(BetESSAPI controller, Evento e, Apostador a) {
         initComponents();
+        this.controller = controller;
         this.evento = e;
+        this.apostador = a;
         this.jLabelId.setText(new Integer(e.getId()).toString());
         this.jLabelE1.setText(e.getEquipa1());
         this.jLabelE2.setText(e.getEquipa2());
+        this.loadTable();
     }
 
     /**
@@ -41,7 +53,7 @@ public class ViewBetsFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabelE2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableApostas = new javax.swing.JTable();
         jToggleButtonClose = new javax.swing.JToggleButton();
         jLabelId = new javax.swing.JLabel();
 
@@ -55,7 +67,7 @@ public class ViewBetsFrame extends javax.swing.JFrame {
 
         jLabelE2.setText("equipa 2");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableApostas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -66,7 +78,7 @@ public class ViewBetsFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableApostas);
 
         jToggleButtonClose.setText("close");
         jToggleButtonClose.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +176,29 @@ public class ViewBetsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelE2;
     private javax.swing.JLabel jLabelId;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableApostas;
     private javax.swing.JToggleButton jToggleButtonClose;
     // End of variables declaration//GEN-END:variables
+
+
+    private void loadTable() {
+        ArrayList<Aposta> apostas ;
+            try{
+                apostas = this.controller.getApostas(apostador, evento);
+                DefaultTableModel model = new DefaultTableModel(new String[]{"valor","odd","resultado"}, 0);
+                this.jTableApostas.setModel(model);
+                this.jTableApostas.setCellSelectionEnabled(false);
+                for(Aposta a : apostas)
+                {
+                    String s;               
+                    model.addRow(new String[]{new Float(a.getM_aposta()).toString(),a.getOdd_fixada().toString()
+                            ,(a.getResultado() == Resultado.VITORIA)? "vitoria" : ((a.getResultado() == Resultado.EMPATE)? "empate":"derrota")
+                    });
+                    model.fireTableDataChanged();
+                }
+
+            } catch (Exception ex) {
+                //new ErrorWindow("Inventário", ex.getMessage(), "error", new JFrame()).wshow();
+            }
+    }
 }
