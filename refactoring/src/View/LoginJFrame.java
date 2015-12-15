@@ -12,6 +12,7 @@ import View.BookieView.BookieUI;
 import View.Tester.TesterUI;
 import model.Apostador;
 import model.Bookie;
+import refactoring.Povoa;
 
 /**
  *
@@ -27,8 +28,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     public LoginJFrame() {
         initComponents();
         this.controller = new BetESSAPI();
-        //TesterUI tester = new TesterUI(this.controller);
-        //tester.setVisible(rootPaneCheckingEnabled);
+        Povoa.povoaSystem(controller);
     }
     public LoginJFrame(BetESSAPI controller) {
         initComponents();

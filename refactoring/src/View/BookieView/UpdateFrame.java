@@ -52,8 +52,8 @@ public class UpdateFrame extends javax.swing.JFrame {
         oddVitoria = new javax.swing.JTextField();
         OddEmpate = new javax.swing.JTextField();
         oddDerrota = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonUpdate = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
         jCheckBoxOpen = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,17 +70,17 @@ public class UpdateFrame extends javax.swing.JFrame {
 
         jLabel7.setText("odd");
 
-        jButton1.setText("update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdate.setText("update");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonUpdateActionPerformed(evt);
             }
         });
 
-        jButton2.setText("cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancel.setText("cancel");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonCancelActionPerformed(evt);
             }
         });
 
@@ -117,9 +117,9 @@ public class UpdateFrame extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(jButtonUpdate)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton2))))))
+                                        .addComponent(jButtonCancel))))))
                     .addComponent(jLabel7))
                 .addGap(84, 84, 84))
             .addGroup(layout.createSequentialGroup()
@@ -149,27 +149,28 @@ public class UpdateFrame extends javax.swing.JFrame {
                 .addComponent(jCheckBoxOpen)
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonUpdate)
+                    .addComponent(jButtonCancel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         if(this.jCheckBoxOpen.isSelected())
             this.evento.setEstado(true);
         else 
             this.evento.setEstado(false);
+        //(this.jCheckBoxOpen.isSelected()) ? this.evento.setEstado(true) : this.evento.setEstado(false);
         this.controller.actualizaOdd(this.evento, new Float(this.oddVitoria.getText()),
                 new Float(this.OddEmpate.getText()), new Float(this.oddDerrota.getText()));
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,8 +209,8 @@ public class UpdateFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField OddEmpate;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonUpdate;
     private javax.swing.JCheckBox jCheckBoxOpen;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

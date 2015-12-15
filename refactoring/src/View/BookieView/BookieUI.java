@@ -8,7 +8,6 @@ package View.BookieView;
 import View.NotificationFrame;
 import Controller.BetESSAPI;
 import View.LoginJFrame;
-import View.View;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -40,9 +39,6 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
         this.jLabelNome.setText(this.me.getNome());
         this.jLabelEmail.setText(this.me.getEmail());
         this.controller.addObserver("bookies",this);
-        Evento e1 = this.controller.registaEvento("braga","bcl"); e1.setOdds(2, 4, 6);
-        Evento e2 = this.controller.registaEvento("braga","bcl"); e2.setOdds(3, 5, 1);
-        Evento e3 = this.controller.registaEvento("braga","bcl"); e3.setOdds(8, 2, 4);
         updateObserver(null);
     }
 
@@ -60,7 +56,7 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEventos = new javax.swing.JTable();
         jToggleButtonNew = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButtonUpdate = new javax.swing.JToggleButton();
         jToggleButtonEnd = new javax.swing.JToggleButton();
         jToggleButtonDelete = new javax.swing.JToggleButton();
         jToggleButtonObserve = new javax.swing.JToggleButton();
@@ -100,10 +96,10 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
             }
         });
 
-        jToggleButton2.setText("update");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        jToggleButtonUpdate.setText("update");
+        jToggleButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                jToggleButtonUpdateActionPerformed(evt);
             }
         });
 
@@ -152,7 +148,7 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
                         .addComponent(jToggleButtonEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton2)
+                .addComponent(jToggleButtonUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButtonNew)
                 .addGap(26, 26, 26))
@@ -178,7 +174,7 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jToggleButtonNew)
-                        .addComponent(jToggleButton2)
+                        .addComponent(jToggleButtonUpdate)
                         .addComponent(jToggleButtonEnd)
                         .addComponent(jToggleButtonDelete)
                         .addComponent(jToggleButtonObserve)))
@@ -191,46 +187,37 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonNewActionPerformed
-        NewEventForm novoEventoUI = new NewEventForm(this.controller);
-        novoEventoUI.setVisible(true);
+        new NewEventForm(this.controller).setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jToggleButtonNewActionPerformed
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+    private void jToggleButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonUpdateActionPerformed
         if(this.jTableEventos.getSelectedRow()>-1){
-            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            UpdateFrame updateframe = new UpdateFrame(this.controller,e);
-            updateframe.setVisible(rootPaneCheckingEnabled);
+            new UpdateFrame(this.controller,this.controller.getEventos().get(this.jTableEventos.getSelectedRow())).setVisible(rootPaneCheckingEnabled);
         }
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    }//GEN-LAST:event_jToggleButtonUpdateActionPerformed
 
     private void jToggleButtonEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEndActionPerformed
         if(this.jTableEventos.getSelectedRow()>-1){
-            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            EndEventFrame endframe = new EndEventFrame(this.controller, e);
-            endframe.setVisible(rootPaneCheckingEnabled);
+            new EndEventFrame(this.controller, this.controller.getEventos().get(this.jTableEventos.getSelectedRow())).setVisible(rootPaneCheckingEnabled);
         }
     }//GEN-LAST:event_jToggleButtonEndActionPerformed
 
     private void jToggleButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDeleteActionPerformed
         if(this.jTableEventos.getSelectedRow()>-1){
-            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            DeleteFrame deleteframe = new DeleteFrame(this.controller, e);
-            deleteframe.setVisible(rootPaneCheckingEnabled);
+            new DeleteFrame(this.controller, this.controller.getEventos().get(this.jTableEventos.getSelectedRow())).setVisible(rootPaneCheckingEnabled);
         }
     }//GEN-LAST:event_jToggleButtonDeleteActionPerformed
 
     private void exitBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBTActionPerformed
-        LoginJFrame login = new LoginJFrame(this.controller);
-        login.setVisible(rootPaneCheckingEnabled);
+        //new LoginJFrame(this.controller).setVisible(rootPaneCheckingEnabled);
         this.dispose();
     }//GEN-LAST:event_exitBTActionPerformed
 
     private void jToggleButtonObserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonObserveActionPerformed
         if(this.jTableEventos.getSelectedRow()>-1){
             Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            this.controller.observarEvento(e, me,"bookies");
-            NotificationFrame n = new NotificationFrame("Está agora a observar o evento "+e.getId()+"!");
-            n.setVisible(rootPaneCheckingEnabled);
+            this.controller.observarEvento(this.controller.getEventos().get(this.jTableEventos.getSelectedRow()), me,"bookies");
+            new NotificationFrame("Está agora a observar o evento "+e.getId()+"!").setVisible(rootPaneCheckingEnabled);
         }
     }//GEN-LAST:event_jToggleButtonObserveActionPerformed
 
@@ -275,39 +262,37 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableEventos;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButtonDelete;
     private javax.swing.JToggleButton jToggleButtonEnd;
     private javax.swing.JToggleButton jToggleButtonNew;
     private javax.swing.JToggleButton jToggleButtonObserve;
+    private javax.swing.JToggleButton jToggleButtonUpdate;
     // End of variables declaration//GEN-END:variables
 
-    
-    public void updateObserver(String notificacao) {
-        Vector<Evento> eventos;
-        if(notificacao!=null){
-            System.out.println("mensagem: "+notificacao);
-            NotificationFrame nf = new NotificationFrame(notificacao);
-            nf.setVisible(rootPaneCheckingEnabled);
-        }
-        try{
-                eventos = this.controller.getEventos();
-                DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
-                this.jTableEventos.setModel(model);
-                this.jTableEventos.setCellSelectionEnabled(false);
-                for(int i=0;i<eventos.size();i++)
-                {
-                    String s;
-
-                    Evento e = eventos.get(i);                
-                    model.addRow(new String[]{new Integer(e.getId()).toString(),e.getEquipa1(),
+    public void loadTable(Evento e, DefaultTableModel model){
+        model.addRow(new String[]{new Integer(e.getId()).toString(),e.getEquipa1(),
                         e.getEquipa2(),e.getDataEvento().toString(),
                         (e.getEstado()) ? "aberto" : "fechado",(e.getResultado()!=null) ? e.getResultado().toString() : ""});
-                    model.fireTableDataChanged();
+        model.fireTableDataChanged();
+    }
+    public DefaultTableModel setTable(){
+        DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
+        this.jTableEventos.setModel(model);
+        this.jTableEventos.setCellSelectionEnabled(false);
+        return model;
+    }
+    public void updateObserver(String notificacao) {
+        if(notificacao!=null){
+            new NotificationFrame(notificacao).setVisible(rootPaneCheckingEnabled);
+        }
+        try{
+                DefaultTableModel model = setTable();
+                for(Evento e : this.controller.getEventos())
+                {               
+                    loadTable(e,model);
                 }
-
             } catch (Exception ex) {
-                //new ErrorWindow("Inventário", ex.getMessage(), "error", new JFrame()).wshow();
+                //do nothing
             }
     }
 

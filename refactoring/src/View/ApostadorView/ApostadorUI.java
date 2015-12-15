@@ -8,7 +8,6 @@ package View.ApostadorView;
 import Controller.BetESSAPI;
 import View.LoginJFrame;
 import View.NotificationFrame;
-import View.View;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.Apostador;
@@ -58,7 +57,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
         jButtonBet = new javax.swing.JButton();
         jToggleButtonObserve = new javax.swing.JToggleButton();
         jToggleButtonExit = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonViewBets = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,10 +101,10 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
             }
         });
 
-        jButton1.setText("view bets");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonViewBets.setText("view bets");
+        jButtonViewBets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonViewBetsActionPerformed(evt);
             }
         });
 
@@ -125,7 +124,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelMail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonViewBets)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToggleButtonObserve, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +146,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
                     .addComponent(jLabelMail)
                     .addComponent(jButtonBet)
                     .addComponent(jToggleButtonObserve)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonViewBets))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -160,15 +159,11 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
 
     private void jButtonBetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBetActionPerformed
         if(this.jTableEventos.getSelectedRow()>-1){
-            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            BetFrame betframe = new BetFrame(this.controller,me,e);
-            betframe.setVisible(rootPaneCheckingEnabled);
+            new BetFrame(this.controller,me,this.controller.getEventos().get(this.jTableEventos.getSelectedRow())).setVisible(rootPaneCheckingEnabled);
         }
     }//GEN-LAST:event_jButtonBetActionPerformed
 
     private void jToggleButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonExitActionPerformed
-        LoginJFrame login = new LoginJFrame(this.controller);
-        login.setVisible(rootPaneCheckingEnabled);
         this.dispose();
     }//GEN-LAST:event_jToggleButtonExitActionPerformed
 
@@ -181,13 +176,11 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
         }
     }//GEN-LAST:event_jToggleButtonObserveActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonViewBetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewBetsActionPerformed
         if(this.jTableEventos.getSelectedRow()>-1){
-            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            ViewBetsFrame mybets = new ViewBetsFrame(this.controller,e,me);
-            mybets.setVisible(rootPaneCheckingEnabled);
+            new ViewBetsFrame(this.controller,this.controller.getEventos().get(this.jTableEventos.getSelectedRow()),me).setVisible(rootPaneCheckingEnabled);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonViewBetsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,8 +218,8 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBet;
+    private javax.swing.JButton jButtonViewBets;
     private javax.swing.JLabel jLabelCoins;
     private javax.swing.JLabel jLabelMail;
     private javax.swing.JLabel jLabelNome;
@@ -236,32 +229,34 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JToggleButton jToggleButtonObserve;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void updateObserver(String notificacao) {
-        Vector<Evento> eventos;
-        if(notificacao!=null){
-            System.out.println("mensagem: "+notificacao);
-            NotificationFrame nf = new NotificationFrame(notificacao);
-            nf.setVisible(rootPaneCheckingEnabled);
-        }
-            try{
-                eventos = this.controller.getEventos();
-                DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
-                this.jTableEventos.setModel(model);
-                this.jTableEventos.setCellSelectionEnabled(false);
-                for(int i=0;i<eventos.size();i++)
-                {
-                    String s;
-
-                    Evento e = eventos.get(i);                
-                    model.addRow(new String[]{new Integer(e.getId()).toString(),e.getEquipa1(),
+    
+    
+    public void loadTable(Evento e, DefaultTableModel model){
+        model.addRow(new String[]{new Integer(e.getId()).toString(),e.getEquipa1(),
                         e.getEquipa2(),e.getDataEvento().toString(),
                         (e.getEstado()) ? "aberto" : "fechado",(e.getResultado()!=null) ? e.getResultado().toString() : ""});
-                    model.fireTableDataChanged();
+        model.fireTableDataChanged();
+    }
+    public DefaultTableModel setTable(){
+        DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
+        this.jTableEventos.setModel(model);
+        this.jTableEventos.setCellSelectionEnabled(false);
+        return model;
+    }
+    @Override
+    public void updateObserver(String notificacao) {
+        if(notificacao!=null){
+            new NotificationFrame(notificacao).setVisible(rootPaneCheckingEnabled);
+        }
+        try{
+                DefaultTableModel model = setTable();
+                for(Evento e : this.controller.getEventos())
+                {               
+                    loadTable(e,model);
                 }
-
             } catch (Exception ex) {
-                //new ErrorWindow("Inventário", ex.getMessage(), "error", new JFrame()).wshow();
+                //do nothing
             }
     }
+    
 }

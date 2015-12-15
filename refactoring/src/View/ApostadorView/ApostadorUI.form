@@ -36,7 +36,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabelMail" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonViewBets" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jToggleButtonObserve" min="-2" pref="108" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -64,7 +64,7 @@
                   <Component id="jLabelMail" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonBet" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jToggleButtonObserve" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonViewBets" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="233" max="-2" attributes="0"/>
@@ -136,12 +136,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonExitActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jButtonViewBets">
       <Properties>
         <Property name="text" type="java.lang.String" value="view bets"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonViewBetsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

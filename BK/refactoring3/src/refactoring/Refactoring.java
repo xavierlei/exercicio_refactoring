@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package refactoring;
+
+import View.LoginJFrame;
 
 /**
  *
  * @author xavier
  */
-public interface View {
-    public void updateView(String message);
+public class Refactoring {
+    public static void main(String args[]){
+        LoginJFrame login = new LoginJFrame();
+        login.setVisible(true);
+    }
 }

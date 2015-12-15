@@ -180,25 +180,28 @@ public class ViewBetsFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonClose;
     // End of variables declaration//GEN-END:variables
 
-
-    private void loadTable() {
-        ArrayList<Aposta> apostas ;
-            try{
-                apostas = this.controller.getApostas(apostador, evento);
-                DefaultTableModel model = new DefaultTableModel(new String[]{"valor","odd","resultado"}, 0);
-                this.jTableApostas.setModel(model);
-                this.jTableApostas.setCellSelectionEnabled(false);
-                for(Aposta a : apostas)
-                {
-                    String s;               
-                    model.addRow(new String[]{new Float(a.getM_aposta()).toString(),a.getOdd_fixada().toString()
+    private DefaultTableModel setTable(){
+        DefaultTableModel model = new DefaultTableModel(new String[]{"valor","odd","resultado"}, 0);
+        this.jTableApostas.setModel(model);
+        this.jTableApostas.setCellSelectionEnabled(false);
+        return model;
+    }
+    private void addRowToTable(Aposta a, DefaultTableModel model){
+        model.addRow(new String[]{new Float(a.getM_aposta()).toString(),a.getOdd_fixada().toString()
                             ,(a.getResultado() == Resultado.VITORIA)? "vitoria" : ((a.getResultado() == Resultado.EMPATE)? "empate":"derrota")
                     });
-                    model.fireTableDataChanged();
+        model.fireTableDataChanged();
+    }
+    private void loadTable() {
+            try{
+                DefaultTableModel model = setTable();
+                for(Aposta a : this.controller.getApostas(apostador, evento))
+                {           
+                    addRowToTable(a, model);
                 }
 
             } catch (Exception ex) {
-                //new ErrorWindow("Inventário", ex.getMessage(), "error", new JFrame()).wshow();
+                //do nothing
             }
     }
 }
