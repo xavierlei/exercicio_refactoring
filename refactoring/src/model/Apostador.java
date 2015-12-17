@@ -63,9 +63,6 @@ public class Apostador implements Observer, Subject{
 
 	@Override
 	public void updateObserver(String notificacao) {
-
-
-		System.out.println("\nApostador(" + this.name + "):" + notificacao + "\n");
                 this.notify(null, notificacao);
 	}
 

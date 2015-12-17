@@ -19,7 +19,7 @@ public class Bookie implements Observer, Subject {
     
     public Bookie(){
         this.nome = "John Doe";
-        //this.password = "";
+        this.email = "no email";
     }
     public Bookie(String nome, String email){
         this.nome = nome;

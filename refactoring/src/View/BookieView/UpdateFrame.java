@@ -158,11 +158,7 @@ public class UpdateFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        if(this.jCheckBoxOpen.isSelected())
-            this.evento.setEstado(true);
-        else 
-            this.evento.setEstado(false);
-        //(this.jCheckBoxOpen.isSelected()) ? this.evento.setEstado(true) : this.evento.setEstado(false);
+        this.evento.setEstado((this.jCheckBoxOpen.isSelected() == true) ? true : false);
         this.controller.actualizaOdd(this.evento, new Float(this.oddVitoria.getText()),
                 new Float(this.OddEmpate.getText()), new Float(this.oddDerrota.getText()));
         this.dispose();

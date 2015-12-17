@@ -148,15 +148,9 @@ public class EndEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDerrotaActionPerformed
 
     private void jToggleButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOKActionPerformed
-        //meter aqui um método inline
-        char resultado;
-        if(this.jRadioButtonVitoria.isSelected())
-            resultado = '1';
-        else if(this.jRadioButtonEmpate.isSelected())
-            resultado = 'x';
-        else
-            resultado = '2';
-        this.controller.fechaEvento(evento, resultado);
+        char result;
+        result = (this.jRadioButtonVitoria.isSelected() == true) ? '1' : (this.jRadioButtonEmpate.isSelected()) ? 'x' : '2';
+        this.controller.fechaEvento(evento, result);
         this.dispose();
     }//GEN-LAST:event_jToggleButtonOKActionPerformed
 
