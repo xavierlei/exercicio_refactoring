@@ -5,7 +5,7 @@
  */
 package View.BookieView;
 
-import Controller.BetESSAPI;
+import refactoring.BetESSAPI;
 import model.Evento;
 
 /**

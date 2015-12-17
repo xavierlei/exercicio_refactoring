@@ -5,7 +5,6 @@
  */
 package refactoring;
 
-import Controller.BetESSAPI;
 import model.Evento;
 
 /**

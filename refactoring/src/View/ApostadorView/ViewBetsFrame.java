@@ -5,7 +5,7 @@
  */
 package View.ApostadorView;
 
-import Controller.BetESSAPI;
+import refactoring.BetESSAPI;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;

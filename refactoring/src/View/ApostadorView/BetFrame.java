@@ -5,7 +5,7 @@
  */
 package View.ApostadorView;
 
-import Controller.BetESSAPI;
+import refactoring.BetESSAPI;
 import model.Aposta;
 import model.Apostador;
 import model.Evento;

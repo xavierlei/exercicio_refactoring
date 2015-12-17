@@ -6,7 +6,7 @@
 package View.BookieView;
 
 import View.NotificationFrame;
-import Controller.BetESSAPI;
+import refactoring.BetESSAPI;
 import View.LoginJFrame;
 import java.util.Date;
 import java.util.Vector;

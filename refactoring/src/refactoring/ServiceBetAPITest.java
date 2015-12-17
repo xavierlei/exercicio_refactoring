@@ -3,7 +3,6 @@ package refactoring;
 
 import model.Evento;
 import model.Apostador;
-import Controller.BetESSAPI;
 
 public class ServiceBetAPITest {
 

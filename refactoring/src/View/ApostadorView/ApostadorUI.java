@@ -5,7 +5,7 @@
  */
 package View.ApostadorView;
 
-import Controller.BetESSAPI;
+import refactoring.BetESSAPI;
 import View.LoginJFrame;
 import View.NotificationFrame;
 import java.util.Vector;

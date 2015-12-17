@@ -5,7 +5,7 @@
  */
 package View.BookieView;
 
-import Controller.BetESSAPI;
+import refactoring.BetESSAPI;
 import java.util.Date;
 import model.Evento;
 

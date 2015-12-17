@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.BetESSAPI;
+import refactoring.BetESSAPI;
 import View.ApostadorView.ApostadorUI;
 import View.BookieView.BookieUI;
 import View.BookieView.BookieUI;
