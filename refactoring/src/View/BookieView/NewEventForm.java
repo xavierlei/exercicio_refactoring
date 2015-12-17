@@ -14,7 +14,7 @@ import model.Evento;
  * @author xavier
  */
 public class NewEventForm extends javax.swing.JFrame {
-    private BetESSAPI controller;
+    
 
 
     /**
@@ -23,10 +23,7 @@ public class NewEventForm extends javax.swing.JFrame {
     public NewEventForm() {
         initComponents();
     }
-    public NewEventForm(BetESSAPI controller) {
-        initComponents();
-        this.controller = controller;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -149,12 +146,7 @@ public class NewEventForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonAddActionPerformed
-        try{
-        Evento e = this.controller.registaEvento(this.jTextFieldEq1.getText(),this.jTextFieldEq2.getText());
-        e.actualizaOdd(new Float(this.OddVitoria.getText()), 
-                new Float(this.OddEmpate.getText()),new Float(this.oddDerrota.getText()));
-        this.dispose();
-        }catch (Exception e) {}
+        
     }//GEN-LAST:event_jToggleButtonAddActionPerformed
 
     private void jToggleButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCancelActionPerformed

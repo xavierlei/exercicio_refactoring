@@ -1,0 +1,135 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controller;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
+import model.Evento;
+import model.Resultado;
+
+/**
+ *
+ * @author xavier
+ */
+public class EventoController {
+    private Evento evento;
+    private Resultado resultado_final;
+    private ArrayList<ApostaController> listaApostas;
+    private OddController odds;
+    //private HashMap<String,ArrayList<Observer>> observers;
+    
+    public EventoController(){
+        this.listaApostas = new ArrayList<ApostaController>();
+    }
+    
+    
+    public void setEquipa1(String equipa1) {
+		this.evento.setEquipa1(equipa1);
+	}
+        public String getEquipa1() {
+		return this.evento.getEquipa1();
+	}
+
+	public String getEquipa2() {
+		return this.evento.getEquipa2();
+	}
+
+	public void setEquipa2(String equipa2) {
+		this.evento.setEquipa2(equipa2);
+	}
+        public OddController getOdd(){return this.odds;}
+	public void setDataEvento(Date dataEvento) {
+		this.evento.setDataEvento(dataEvento);
+	}
+        public Date getDataEvento(){
+            return this.evento.getDataEvento();
+        }
+        public int getId(){
+            return this.evento.getId();
+        }
+        public Resultado getResultado(){
+            return this.resultado_final;
+        }
+        
+        
+        public void setResultado(char resultado){
+            this.resultado_final =  (resultado == '1') ? Resultado.VITORIA : (resultado == '2') 
+                    ? Resultado.DERROTA : Resultado.EMPATE;
+        }
+          
+	public boolean fechaEvento(char resultadofinal){
+		this.setResultado(resultadofinal);
+		this.evento.SetIsOpen(false);
+		this.notifyApostadores();
+                //this.notify("bookies","O Evento "+this.getId()+" terminou!");
+                //this.notify("apostadores","O Evento "+this.getId()+" terminou!");
+		return true;
+	}
+
+	public void registaAposta(ApostaController aposta) {
+		this.listaApostas.add(aposta);
+	}
+
+	public boolean actualizaOdd(float odd1, float oddx, float odd2 ){
+		this.odds.setOddx(oddx);
+		this.odds.setOdd1(odd1);
+		this.odds.setOdd2(odd2);
+                //this.notify("bookies","a odd do evento "+this.getId()+" foi alterada!");
+                //this.notify("apostadores","a odd do evento "+this.getId()+" foi alterada!");
+		return true;
+	}
+
+	public void setEstado(boolean estado) {
+		// TODO - implement Aposta.setEstado
+            this.evento.SetIsOpen(estado);
+
+	}
+        public boolean getEstado(){
+            return this.evento.getIsOpen();
+        }
+        
+        private int premio(ApostaController aposta){
+            return (this.resultado_final == aposta.getResultado()) ? aposta.getPremio() : 0;
+        }
+        
+	public void notifyApostadores() {
+		if (!this.evento.getIsOpen()){                    
+                    for(ApostaController aposta : this.listaApostas) {
+			//aposta.getApostador().updateObserver("ganhou "+premio(aposta)+" no evento "+this.evento.getId());
+                        //isto deverá ficar aqui?
+                        //aposta.getApostador().setBetESScoins(aposta.getApostador().getBetESScoins()+premio(aposta));
+                    }
+		}
+	}
+
+	public void setOdds(float odd_1, float odd_x, float odd_2) {
+            //this.odds = new Odd(odd_1,odd_x,odd_2);
+            this.odds = new OddController();
+            this.odds.setOdd1(odd_1);
+            this.odds.setOdd2(odd_2);
+            this.odds.setOddx(odd_x);
+	}
+
+	public void updateOdds(float odd_1, float odd_x, float odd_2){
+	    this.odds.setOdd1(odd_1);
+            this.odds.setOdd2(odd_2);
+            this.odds.setOddx(odd_x);
+	}
+
+	// views Evento
+
+	
+        public ArrayList<ApostaController> getApostas(ApostadorController apostador){
+            ArrayList<ApostaController> res = new ArrayList<ApostaController>();
+            for(ApostaController a : this.listaApostas){
+                if(a.getApostador().equals(apostador))
+                    res.add(a);
+            }
+            return res;
+        }
+    
+}

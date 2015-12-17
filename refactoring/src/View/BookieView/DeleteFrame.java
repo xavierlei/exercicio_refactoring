@@ -13,8 +13,7 @@ import model.Evento;
  * @author xavier
  */
 public class DeleteFrame extends javax.swing.JFrame {
-    private BetESSAPI controller;
-    private Evento evento;
+
 
     /**
      * Creates new form DeleteFrame
@@ -22,15 +21,7 @@ public class DeleteFrame extends javax.swing.JFrame {
     public DeleteFrame() {
         initComponents();
     }
-    public DeleteFrame(BetESSAPI controller, Evento evento) {
-        initComponents();
-        this.controller = controller;
-        this.evento = evento;
-        if(this.evento.getResultado()!=null){
-            this.jLabelWarning1.setVisible(false);
-            this.jLabelWarning2.setVisible(false);
-        }    
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,8 +96,7 @@ public class DeleteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonCancelActionPerformed
 
     private void jToggleButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDeleteActionPerformed
-        this.controller.apagarEvento(this.evento);
-        this.dispose();
+        
     }//GEN-LAST:event_jToggleButtonDeleteActionPerformed
 
     /**

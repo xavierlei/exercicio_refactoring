@@ -17,9 +17,7 @@ import model.Resultado;
  */
 public class BetFrame extends javax.swing.JFrame {
     
-    private BetESSAPI controller;
-    private Apostador apostador;
-    private Evento evento;
+
 
     /**
      * Creates new form BetFrame
@@ -27,18 +25,7 @@ public class BetFrame extends javax.swing.JFrame {
     public BetFrame() {
         initComponents();
     }
-    public BetFrame(BetESSAPI controller, Apostador apostador, Evento evento) {
-        initComponents();
-        this.controller = controller;
-        this.apostador = apostador;
-        this.evento = evento;
-        this.jLabelEq1.setText(this.evento.getEquipa1());
-        this.jLabelEq2.setText(this.evento.getEquipa2());
-        this.jLabelOddVit.setText(new Float(this.evento.getOdd().getOdd1()).toString());
-        this.jLabelOddEmp.setText(new Float(this.evento.getOdd().getOddx()).toString());
-        this.jLabelOddDer.setText(new Float(this.evento.getOdd().getOdd2()).toString());
-        this.jRadioButtonVitoria.setSelected(rootPaneCheckingEnabled);
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -208,10 +195,7 @@ public class BetFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDerrotaActionPerformed
 
     private void jToggleButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOkActionPerformed
-        char r = this.jRadioButtonVitoria.isSelected() ? '1' : (this.jRadioButtonEmpate.isSelected())? 'x' : '2';
-        this.controller.registaAposta(new Aposta(this.apostador,new Float(this.jTextFieldCoins.getText()),
-                r,this.evento.getOdd()), this.evento, this.apostador);
-        this.dispose();
+
     }//GEN-LAST:event_jToggleButtonOkActionPerformed
 
     /**

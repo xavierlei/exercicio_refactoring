@@ -5,6 +5,7 @@
  */
 package refactoring;
 
+import Controller.LoginController;
 import View.LoginJFrame;
 
 /**
@@ -13,7 +14,8 @@ import View.LoginJFrame;
  */
 public class Refactoring {
     public static void main(String args[]){
-        LoginJFrame login = new LoginJFrame();
-        login.setVisible(true);
+        BetESSAPI api = new BetESSAPI();
+        LoginController login = new LoginController(api);
+        login.viewlogin();
     }
 }

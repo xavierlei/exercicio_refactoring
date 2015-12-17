@@ -19,25 +19,14 @@ import model.Resultado;
  * @author xavier
  */
 public class ViewBetsFrame extends javax.swing.JFrame {
-    BetESSAPI controller;
-    Evento evento;
-    Apostador apostador;
+
     /**
      * Creates new form ViewBetsFrame
      */
     public ViewBetsFrame() {
         initComponents();
     }
-    public ViewBetsFrame(BetESSAPI controller, Evento e, Apostador a) {
-        initComponents();
-        this.controller = controller;
-        this.evento = e;
-        this.apostador = a;
-        this.jLabelId.setText(new Integer(e.getId()).toString());
-        this.jLabelE1.setText(e.getEquipa1());
-        this.jLabelE2.setText(e.getEquipa2());
-        this.loadTable();
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,28 +169,5 @@ public class ViewBetsFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonClose;
     // End of variables declaration//GEN-END:variables
 
-    private DefaultTableModel setTable(){
-        DefaultTableModel model = new DefaultTableModel(new String[]{"valor","odd","resultado"}, 0);
-        this.jTableApostas.setModel(model);
-        this.jTableApostas.setCellSelectionEnabled(false);
-        return model;
-    }
-    private void addRowToTable(Aposta a, DefaultTableModel model){
-        model.addRow(new String[]{new Float(a.getM_aposta()).toString(),a.getOdd_fixada().toString()
-                            ,(a.getResultado() == Resultado.VITORIA)? "vitoria" : ((a.getResultado() == Resultado.EMPATE)? "empate":"derrota")
-                    });
-        model.fireTableDataChanged();
-    }
-    private void loadTable() {
-            try{
-                DefaultTableModel model = setTable();
-                for(Aposta a : this.controller.getApostas(apostador, evento))
-                {           
-                    addRowToTable(a, model);
-                }
 
-            } catch (Exception ex) {
-                //do nothing
-            }
-    }
 }

@@ -2,6 +2,10 @@ package refactoring;
 
 
 
+import Controller.ApostaController;
+import Controller.ApostadorController;
+import Controller.BookieController;
+import Controller.EventoController;
 import model.Evento;
 import model.Apostador;
 import java.time.Instant;
@@ -16,9 +20,9 @@ import model.Observer;
 
 public class BetESSAPI implements Subject {
 
-	private ArrayList<Evento> listaEventos;
-	private ArrayList<Apostador> listaApostadores;
-        private HashMap<String,Bookie> listaBookies;
+	private ArrayList<EventoController> listaEventos;
+	private ArrayList<ApostadorController> listaApostadores;
+        private HashMap<String,BookieController> listaBookies;
 	private double betESStotal;
 	private String name;
         public ArrayList<Observer> views;
@@ -29,9 +33,9 @@ public class BetESSAPI implements Subject {
 
 	public BetESSAPI() {
 		this.betESStotal = 0;
-		this.listaEventos = new ArrayList<Evento>();
-		this.listaApostadores = new ArrayList<Apostador>();
-                this.listaBookies = new HashMap<String,Bookie>();
+		this.listaEventos = new ArrayList<EventoController>();
+		this.listaApostadores = new ArrayList<ApostadorController>();
+                this.listaBookies = new HashMap<String,BookieController>();
                 this.views = new ArrayList<Observer>();
 		this.name = "BetESSAPI";
 		this.in = new BufferedReader(new InputStreamReader(System.in));
@@ -40,7 +44,7 @@ public class BetESSAPI implements Subject {
 
         
 
-	public void registaAposta(Aposta aposta, Evento evento, Apostador apostador) {
+	public void registaAposta(ApostaController aposta, EventoController evento, ApostadorController apostador) {
                 if(aposta.getM_aposta()<= apostador.getBetESScoins()){
                     evento.registaAposta(aposta);
                     apostador.setBetESScoins(apostador.getBetESScoins()-aposta.getM_aposta());
@@ -54,7 +58,7 @@ public class BetESSAPI implements Subject {
             e.addObserver(category, o);
         }
         
-	public boolean actualizaOdd(Evento evento, float odd_1, float odd_x, float odd_2){
+	public boolean actualizaOdd(EventoController evento, float odd_1, float odd_x, float odd_2){
                 boolean b  = evento.actualizaOdd(odd_1,odd_x,odd_2);
                 this.notify(null,null);
 		return b;
@@ -62,13 +66,13 @@ public class BetESSAPI implements Subject {
 	}
         
 
-	public boolean  fechaEvento(Evento evento, char resultado){
+	public boolean  fechaEvento(EventoController evento, char resultado){
                 boolean b = evento.fechaEvento(resultado);
                 this.notify(null,null);
 		return b;
 	}
         public void apagarEvento(Evento e){
-            for(Evento ev : this.listaEventos){
+            for(EventoController ev : this.listaEventos){
                 if(e.getId() == ev.getId()){
                     listaEventos.remove(ev);
                     this.notify(null,null);
@@ -76,86 +80,51 @@ public class BetESSAPI implements Subject {
             }
         }
 
-	public void viewEventos(){
 
-		ListIterator<Evento> listIterator = this.listaEventos.listIterator();
-		while (listIterator.hasNext()) {
-			System.out.println(listIterator.next().viewEvento());
-		}
-	}
-        public ArrayList<Evento> getEventos(){return this.listaEventos;}
+        public ArrayList<EventoController> getEventos(){
+            return this.listaEventos;
+        }
 
-	public Evento registaEvento(String equipa1, String equipa2) {
-
-		Evento aposta = new Evento(equipa1,equipa2, Date.from(Instant.now()));
-		this.listaEventos.add(aposta);
-                this.notify(null,null);
-		return aposta;
-	}
-
-	public Evento registaEvento() {
-
-
-		Evento newevento = new Evento();
-
-		newevento.viewCreateEvento();
-		this.listaEventos.add(newevento);
-		return newevento;
+	public EventoController registaEvento(String equipa1, String equipa2) {
+            //EventoController aposta = new EventoController(equipa1,equipa2, Date.from(Instant.now()));
+            EventoController evento = new EventoController();
+            evento.setEquipa1(equipa1);
+            evento.setEquipa2(equipa2);
+            evento.setDataEvento(Date.from(Instant.now()));
+            this.listaEventos.add(evento);
+            this.notify(null,null);
+            return evento;
 	}
 
 	// Interface sobre Apostadores
         
 
-	public void viewApostadores(){
 
-		ListIterator<Apostador> lista = this.listaApostadores.listIterator();
-		while(lista.hasNext()){
-			System.out.println(lista.next());
-		}
-	}
-
-	public Apostador registaApostador(String nome, String  email, double coins){
-
-		Apostador newuser = new Apostador(nome, email, coins);
+	public ApostadorController registaApostador(String nome, String  email, double coins){
+		ApostadorController newuser = new ApostadorController();
+                //(nome, email, coins);
+                newuser.setName(nome);
+                newuser.setEmail(email);
+                newuser.setBetESScoins(coins);
 		listaApostadores.add(newuser);
 		return newuser;
 	}
 
-	public Apostador registaApostador() {
 
-
-		Apostador newuser = new Apostador();
-		newuser.viewCreateApostador();
-		this.listaApostadores.add(newuser);
-
-
-		return newuser;
-	}
-        public Apostador loginApostador(String name){
-            for(Apostador a : this.listaApostadores){
+        public ApostadorController loginApostador(String name){
+            for(ApostadorController a : this.listaApostadores){
                 if(a.getName().equals(name))
                     return a;
             }
             return null;
         }
 
-	public Apostador actualizaApostador(Apostador apostador) {
 
 
-		apostador.viewUpdateApostadpr(apostador);
 
-
-		return apostador;
-	}
-
-	public boolean deleteApostador(Apostador apostador){
-		apostador.viewDeleteApostador();
-		return this.listaApostadores.remove(apostador);
-
-	}
-        public ArrayList<Aposta> getApostas(Apostador apostador, Evento e){
-            ArrayList<Aposta> res = new ArrayList<Aposta>();
-                for(Aposta aposta : e.getApostas(apostador))
+        public ArrayList<ApostaController> getApostas(ApostadorController apostador, EventoController e){
+            ArrayList<ApostaController> res = new ArrayList<ApostaController>();
+                for(ApostaController aposta : e.getApostas(apostador))
                     res.add(aposta);
             return res;
         }
@@ -163,14 +132,16 @@ public class BetESSAPI implements Subject {
 
 	// Interface sobre Bookies
 
-	public Bookie loginBookie(String nome){
+	public BookieController loginBookie(String nome){
             if(this.listaBookies.containsKey(nome))
                 return this.listaBookies.get(nome);
             return null;
         }
-        public Bookie registaBookie(String nome, String email){
+        public BookieController registaBookie(String nome, String email){
             if(!this.listaBookies.containsKey(nome)){
-                Bookie b = new Bookie(nome,email);
+                BookieController b = new BookieController();
+                b.setNome(nome);
+                b.setEmail(email);
                 this.listaBookies.put(nome, b);
                 return b;
             }

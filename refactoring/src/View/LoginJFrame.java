@@ -11,28 +11,31 @@ import View.BookieView.BookieUI;
 import View.BookieView.BookieUI;
 import model.Apostador;
 import model.Bookie;
+import model.Observer;
+import model.Subject;
 import refactoring.Povoa;
 
 /**
  *
  * @author xavier
  */
-public class LoginJFrame extends javax.swing.JFrame {
+public class LoginJFrame extends javax.swing.JFrame implements View, Subject {
+    Observer channelLogin;
+    Observer channelRegister;
     
-    private BetESSAPI controller;
 
     /**
      * Creates new form LoginJFrame
      */
     public LoginJFrame() {
         initComponents();
-        this.controller = new BetESSAPI();
-        Povoa.povoaSystem(controller);
     }
-    public LoginJFrame(BetESSAPI controller) {
+    public LoginJFrame(Observer login, Observer register) {
         initComponents();
-        this.controller = controller;
+        channelLogin = login;
+        channelRegister = register;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -159,24 +162,10 @@ public class LoginJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
-        if(jRadioButtonApostador.isSelected()){
-            Apostador apostador = this.controller.loginApostador(this.jTextFieldName.getText());
-            if(apostador!=null)
-                if(apostador!=null){
-                    ApostadorUI apostadorUI = new ApostadorUI(this.controller,apostador);
-                    apostadorUI.setVisible(rootPaneCheckingEnabled);
-                    //this.dispose();
-                }
-        }
-        else if(jRadioButtonBookie.isSelected()){
-            Bookie bookie = this.controller.loginBookie(this.jTextFieldName.getText());
-            if(bookie !=null){
-                BookieUI bookieUI = new BookieUI(this.controller,bookie);
-                bookieUI.setVisible(true);
-                //this.dispose();
-            }
-        }
+        if(this.jRadioButtonApostador.isSelected())
+            this.notify("login", "LOGINAPOSTADOR");
+        else
+            this.notify("login","LOGINBOOKIE");
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void jRadioButtonBookieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonBookieActionPerformed
@@ -192,14 +181,10 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonApostadorActionPerformed
 
     private void jToggleButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRegisterActionPerformed
-        if(jRadioButtonApostador.isSelected()){
-            Apostador apostador = this.controller.registaApostador(this.jTextFieldName.getText(), 
-                    this.jTextFieldEmail.getText(),new Double(this.jTextFieldCoins.getText()));
-        }
-        else if(jRadioButtonBookie.isSelected()){
-            Bookie bookie = this.controller.registaBookie(this.jTextFieldName.getText(),
-                    this.jTextFieldEmail.getText());
-        }
+        if(this.jRadioButtonApostador.isSelected())
+            this.notify("register", "REGISTERAPOSTADOR");
+        else
+            this.notify("register","REGISTERBOOKIE");
     }//GEN-LAST:event_jToggleButtonRegisterActionPerformed
 
     /**
@@ -252,4 +237,44 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonRegister;
     private javax.swing.JButton loginButton;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updateView(Object arg) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void notify(String channel, String message) {
+        if(channel.equals("login")){
+            if(message.equals("LOGINBOOKIE"))
+                this.channelLogin.updateObserver("LOGINBOOKIE");
+            if(message.equals("LOGINAPOSTADOR"))
+                this.channelLogin.updateObserver("LOGINAPOSTADOR");
+            
+        }
+        if(channel.equals("register")){
+            if(message.equals("REGISTERBOOKIE"))
+                this.channelLogin.updateObserver("REGISTERBOOKIE");
+            if(message.equals("REGISTERAPOSTADOR"))
+                this.channelLogin.updateObserver("REGISTERAPOSTADOR");
+        }      
+    }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        if(channel.equals("login"))
+            this.channelLogin = o;
+        if(channel.equals("register"))
+            this.channelRegister = o;
+    }
+    
+    public String getNameText(){
+        return this.jTextFieldName.getText();
+    }
+    public String getEmailText(){
+        return this.jTextFieldEmail.getText();
+    }
+    public String getBetCoinsText(){
+        return this.jTextFieldCoins.getText();
+    }
 }

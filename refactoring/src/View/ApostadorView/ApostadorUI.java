@@ -18,27 +18,15 @@ import model.Observer;
  *
  * @author xavier
  */
-public class ApostadorUI extends javax.swing.JFrame implements Observer {
+public class ApostadorUI extends javax.swing.JFrame {
     
-    private BetESSAPI controller;
-    private Apostador me;
     /**
      * Creates new form ApostadorUI
      */
     public ApostadorUI() {
         initComponents();
     }
-    public ApostadorUI(BetESSAPI controller, Apostador a) {
-        initComponents();
-        this.controller = controller;
-        this.me = a;
-        this.controller.addObserver("apostadores",this);
-        this.me.addObserver(null, this);
-        this.jLabelNome.setText(this.me.getName());
-        this.jLabelMail.setText((this.me.getEmail()));
-        this.jLabelCoins.setText(this.me.getBetESScoins()+" betEssCoins");
-        this.updateObserver(null);
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,9 +146,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBetActionPerformed
-        if(this.jTableEventos.getSelectedRow()>-1){
-            new BetFrame(this.controller,me,this.controller.getEventos().get(this.jTableEventos.getSelectedRow())).setVisible(rootPaneCheckingEnabled);
-        }
+
     }//GEN-LAST:event_jButtonBetActionPerformed
 
     private void jToggleButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonExitActionPerformed
@@ -168,18 +154,11 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jToggleButtonExitActionPerformed
 
     private void jToggleButtonObserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonObserveActionPerformed
-        if(this.jTableEventos.getSelectedRow()>-1){
-            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            this.controller.observarEvento(e, me,"apostadores");
-            NotificationFrame n = new NotificationFrame("Está agora a observar o evento "+e.getId()+"!");
-            n.setVisible(rootPaneCheckingEnabled);
-        }
+        
     }//GEN-LAST:event_jToggleButtonObserveActionPerformed
 
     private void jButtonViewBetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewBetsActionPerformed
-        if(this.jTableEventos.getSelectedRow()>-1){
-            new ViewBetsFrame(this.controller,this.controller.getEventos().get(this.jTableEventos.getSelectedRow()),me).setVisible(rootPaneCheckingEnabled);
-        }
+
     }//GEN-LAST:event_jButtonViewBetsActionPerformed
 
     /**
@@ -230,34 +209,6 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
     // End of variables declaration//GEN-END:variables
 
     
-    
-    public void loadTable(Evento e, DefaultTableModel model){
-        model.addRow(new String[]{new Integer(e.getId()).toString(),e.getEquipa1(),
-                        e.getEquipa2(),e.getDataEvento().toString(),
-                        (e.getEstado()) ? "aberto" : "fechado",(e.getResultado()!=null) ? e.getResultado().toString() : ""});
-        model.fireTableDataChanged();
-    }
-    public DefaultTableModel setTable(){
-        DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
-        this.jTableEventos.setModel(model);
-        this.jTableEventos.setCellSelectionEnabled(false);
-        return model;
-    }
-    @Override
-    public void updateObserver(String notificacao) {
-        if(notificacao!=null){
-            new NotificationFrame(notificacao).setVisible(rootPaneCheckingEnabled);
-        }
-        try{
-                this.jLabelCoins.setText(this.me.getBetESScoins()+" betEssCoins");
-                DefaultTableModel model = setTable();
-                for(Evento e : this.controller.getEventos())
-                {               
-                    loadTable(e,model);
-                }
-            } catch (Exception ex) {
-                //do nothing
-            }
-    }
+
     
 }

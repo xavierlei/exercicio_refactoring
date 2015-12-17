@@ -1,7 +1,7 @@
 package model;
 
 public interface Subject {
-        void notify(String category, String message);
-        void addObserver(String category, Observer o);
+        void notify(String channel, String message);
+        void addObserver(String channel, Observer o);
 
 }

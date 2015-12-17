@@ -13,8 +13,7 @@ import model.Evento;
  * @author xavier
  */
 public class UpdateFrame extends javax.swing.JFrame {
-    private BetESSAPI controller;
-    private Evento evento;
+ 
 
     /**
      * Creates new form UpdateFrame
@@ -22,17 +21,7 @@ public class UpdateFrame extends javax.swing.JFrame {
     public UpdateFrame() {
         initComponents();
     }
-    public UpdateFrame(BetESSAPI controller, Evento evento) {
-        initComponents();
-        this.controller = controller;
-        this.evento = evento;
-        this.jLabelEq1.setText(evento.getEquipa1());
-        this.jLabelEq2.setText(evento.getEquipa2());
-        this.oddVitoria.setText(new Float(evento.getOdd().getOdd1()).toString());
-        this.OddEmpate.setText(new Float(evento.getOdd().getOddx()).toString());
-        this.oddDerrota.setText(new Float(evento.getOdd().getOdd2()).toString());
-        this.jCheckBoxOpen.setSelected(this.evento.getEstado());
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,10 +147,7 @@ public class UpdateFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        this.evento.setEstado((this.jCheckBoxOpen.isSelected() == true) ? true : false);
-        this.controller.actualizaOdd(this.evento, new Float(this.oddVitoria.getText()),
-                new Float(this.OddEmpate.getText()), new Float(this.oddDerrota.getText()));
-        this.dispose();
+        
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed

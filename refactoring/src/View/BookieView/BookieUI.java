@@ -8,6 +8,7 @@ package View.BookieView;
 import View.NotificationFrame;
 import refactoring.BetESSAPI;
 import View.LoginJFrame;
+import View.View;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -15,15 +16,15 @@ import model.Bookie;
 import model.Evento;
 import model.Observer;
 import model.Resultado;
+import model.Subject;
 
 /**
  *
  * @author xavier
  */
-public class BookieUI extends javax.swing.JFrame implements Observer {
+public class BookieUI extends javax.swing.JFrame implements View, Subject  {
     
-    private BetESSAPI controller;
-    private Bookie me;
+
 
     /**
      * Creates new form BookieUI
@@ -31,16 +32,7 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     public BookieUI() {
         initComponents();
     }
-    public BookieUI(BetESSAPI controller, Bookie bookie) {
-        initComponents();
-        this.controller = controller;
-        this.me = bookie;
-        me.addObserver(null,this);
-        this.jLabelNome.setText(this.me.getNome());
-        this.jLabelEmail.setText(this.me.getEmail());
-        this.controller.addObserver("bookies",this);
-        updateObserver(null);
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -187,25 +179,19 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonNewActionPerformed
-        new NewEventForm(this.controller).setVisible(rootPaneCheckingEnabled);
+        
     }//GEN-LAST:event_jToggleButtonNewActionPerformed
 
     private void jToggleButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonUpdateActionPerformed
-        if(this.jTableEventos.getSelectedRow()>-1){
-            new UpdateFrame(this.controller,this.controller.getEventos().get(this.jTableEventos.getSelectedRow())).setVisible(rootPaneCheckingEnabled);
-        }
+        
     }//GEN-LAST:event_jToggleButtonUpdateActionPerformed
 
     private void jToggleButtonEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEndActionPerformed
-        if(this.jTableEventos.getSelectedRow()>-1){
-            new EndEventFrame(this.controller, this.controller.getEventos().get(this.jTableEventos.getSelectedRow())).setVisible(rootPaneCheckingEnabled);
-        }
+        
     }//GEN-LAST:event_jToggleButtonEndActionPerformed
 
     private void jToggleButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDeleteActionPerformed
-        if(this.jTableEventos.getSelectedRow()>-1){
-            new DeleteFrame(this.controller, this.controller.getEventos().get(this.jTableEventos.getSelectedRow())).setVisible(rootPaneCheckingEnabled);
-        }
+        
     }//GEN-LAST:event_jToggleButtonDeleteActionPerformed
 
     private void exitBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBTActionPerformed
@@ -214,11 +200,7 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_exitBTActionPerformed
 
     private void jToggleButtonObserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonObserveActionPerformed
-        if(this.jTableEventos.getSelectedRow()>-1){
-            Evento e = this.controller.getEventos().get(this.jTableEventos.getSelectedRow());
-            this.controller.observarEvento(this.controller.getEventos().get(this.jTableEventos.getSelectedRow()), me,"bookies");
-            new NotificationFrame("Está agora a observar o evento "+e.getId()+"!").setVisible(rootPaneCheckingEnabled);
-        }
+        
     }//GEN-LAST:event_jToggleButtonObserveActionPerformed
 
     /**
@@ -269,40 +251,28 @@ public class BookieUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JToggleButton jToggleButtonUpdate;
     // End of variables declaration//GEN-END:variables
 
-    public void loadTable(Evento e, DefaultTableModel model){
-        model.addRow(new String[]{new Integer(e.getId()).toString(),e.getEquipa1(),
-                        e.getEquipa2(),e.getDataEvento().toString(),
-                        (e.getEstado()) ? "aberto" : "fechado",(e.getResultado()!=null) ? e.getResultado().toString() : ""});
-        model.fireTableDataChanged();
-    }
-    public DefaultTableModel setTable(){
-        DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
-        this.jTableEventos.setModel(model);
-        this.jTableEventos.setCellSelectionEnabled(false);
-        return model;
-    }
-    public void updateObserver(String notificacao) {
-        if(notificacao!=null){
-            new NotificationFrame(notificacao).setVisible(rootPaneCheckingEnabled);
-        }
-        try{
-                DefaultTableModel model = setTable();
-                for(Evento e : this.controller.getEventos())
-                {               
-                    loadTable(e,model);
-                }
-            } catch (Exception ex) {
-                //do nothing
-            }
+    @Override
+    public void updateView(Object arg) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private String setResult(Resultado r){
-            if(r == Resultado.VITORIA)
-                return "vitoria";
-            if(r == Resultado.DERROTA)
-                return "empate";
-            return "derrota";		
+    @Override
+    public void notify(String channel, String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setTextName(String name){
+        this.jLabelNome.setText(name);
+    }
+    public void setEmailText(String mail){
+        this.jLabelEmail.setText(mail);
+    }
+
 
     
    
