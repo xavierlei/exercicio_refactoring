@@ -40,6 +40,7 @@ public class Apostador implements Observer, Subject{
 		return name;
 	}
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}

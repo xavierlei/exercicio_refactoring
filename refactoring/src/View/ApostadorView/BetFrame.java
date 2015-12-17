@@ -210,7 +210,7 @@ public class BetFrame extends javax.swing.JFrame {
     private void jToggleButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOkActionPerformed
         char r = this.jRadioButtonVitoria.isSelected() ? '1' : (this.jRadioButtonEmpate.isSelected())? 'x' : '2';
         this.controller.registaAposta(new Aposta(this.apostador,new Float(this.jTextFieldCoins.getText()),
-                r,this.evento.getOdd()), this.evento);
+                r,this.evento.getOdd()), this.evento, this.apostador);
         this.dispose();
     }//GEN-LAST:event_jToggleButtonOkActionPerformed
 

@@ -79,22 +79,14 @@ public class Evento implements Subject {
             return this.dataEvento;
         }
         public int getId(){return this.id;}
-
-        public void setResultado(char resultado){
-            switch (resultado) {
-		case '1':
-                    this.resultado_final = Resultado.VITORIA;
-                    break;
-		case 'x':
-                    this.resultado_final = Resultado.EMPATE;
-                    break;
-		case '2':
-                    this.resultado_final = Resultado.DERROTA;
-                    break;
-            }
-        }
         public Resultado getResultado(){return this.resultado_final;}
         
+        
+        public void setResultado(char resultado){
+            this.resultado_final =  (resultado == '1') ? Resultado.VITORIA : (resultado == '2') 
+                    ? Resultado.DERROTA : Resultado.EMPATE;
+        }
+          
 	public boolean fechaEvento(char resultadofinal){
 		this.setResultado(resultadofinal);
 		this.isOpen = false;
@@ -123,18 +115,19 @@ public class Evento implements Subject {
 
 	}
         public boolean getEstado(){return this.isOpen;}
+        
         private int premio(Aposta aposta){
-            if (this.resultado_final == aposta.getResultado()) {
-                return aposta.getPremio();
-            }
-            return 0;
+            return (this.resultado_final == aposta.getResultado()) ? aposta.getPremio() : 0;
         }
+        
 	public void notifyApostadores() {
 		if (!this.isOpen){
                     Enumeration<Aposta> lista_apostas = this.listaApostas.elements();
                     while (lista_apostas.hasMoreElements()) {
 			Aposta aposta = lista_apostas.nextElement();
 			aposta.getApostador().updateObserver("ganhou "+premio(aposta)+" no evento "+this.id);
+                        //isto deverá ficar aqui?
+                        aposta.getApostador().setBetESScoins(aposta.getApostador().getBetESScoins()+premio(aposta));
                     }
 		}
 	}

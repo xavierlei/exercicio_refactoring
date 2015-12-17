@@ -9,7 +9,6 @@ import Controller.BetESSAPI;
 import View.ApostadorView.ApostadorUI;
 import View.BookieView.BookieUI;
 import View.BookieView.BookieUI;
-import View.Tester.TesterUI;
 import model.Apostador;
 import model.Bookie;
 import refactoring.Povoa;

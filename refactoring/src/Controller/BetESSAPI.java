@@ -16,8 +16,8 @@ import model.Observer;
 
 public class BetESSAPI implements Subject {
 
-	private Vector<Evento> listaEventos;
-	private Vector<Apostador> listaApostadores;
+	private ArrayList<Evento> listaEventos;
+	private ArrayList<Apostador> listaApostadores;
         private HashMap<String,Bookie> listaBookies;
 	private double betESStotal;
 	private String name;
@@ -29,8 +29,8 @@ public class BetESSAPI implements Subject {
 
 	public BetESSAPI() {
 		this.betESStotal = 0;
-		this.listaEventos = new Vector<Evento>();
-		this.listaApostadores = new Vector<Apostador>();
+		this.listaEventos = new ArrayList<Evento>();
+		this.listaApostadores = new ArrayList<Apostador>();
                 this.listaBookies = new HashMap<String,Bookie>();
                 this.views = new ArrayList<Observer>();
 		this.name = "BetESSAPI";
@@ -40,8 +40,13 @@ public class BetESSAPI implements Subject {
 
         
 
-	public void registaAposta(Aposta aposta, Evento evento) {
-		evento.registaAposta(aposta);
+	public void registaAposta(Aposta aposta, Evento evento, Apostador apostador) {
+                if(aposta.getM_aposta()<= apostador.getBetESScoins()){
+                    evento.registaAposta(aposta);
+                    apostador.setBetESScoins(apostador.getBetESScoins()-aposta.getM_aposta());
+                    this.notify("apostadores", null);
+                }
+                    
 	}
 
 	// Interface sobre Eventos
@@ -78,7 +83,7 @@ public class BetESSAPI implements Subject {
 			System.out.println(listIterator.next().viewEvento());
 		}
 	}
-        public Vector<Evento> getEventos(){return this.listaEventos;}
+        public ArrayList<Evento> getEventos(){return this.listaEventos;}
 
 	public Evento registaEvento(String equipa1, String equipa2) {
 

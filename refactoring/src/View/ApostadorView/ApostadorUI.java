@@ -249,6 +249,7 @@ public class ApostadorUI extends javax.swing.JFrame implements Observer {
             new NotificationFrame(notificacao).setVisible(rootPaneCheckingEnabled);
         }
         try{
+                this.jLabelCoins.setText(this.me.getBetESScoins()+" betEssCoins");
                 DefaultTableModel model = setTable();
                 for(Evento e : this.controller.getEventos())
                 {               
