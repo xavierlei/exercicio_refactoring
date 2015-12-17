@@ -5,6 +5,7 @@
  */
 package View.BookieView;
 
+import Controller.BookieUIController;
 import View.NotificationFrame;
 import refactoring.BetESSAPI;
 import View.LoginJFrame;
@@ -14,16 +15,18 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.Bookie;
 import model.Evento;
-import model.Observer;
+import ObserverPattern.Observer;
 import model.Resultado;
-import model.Subject;
+import ObserverPattern.Subject;
+import javax.swing.JTable;
 
 /**
  *
  * @author xavier
  */
-public class BookieUI extends javax.swing.JFrame implements View, Subject  {
+public class BookieUI extends javax.swing.JFrame implements Subject  {
     
+    Observer controller;
 
 
     /**
@@ -31,6 +34,11 @@ public class BookieUI extends javax.swing.JFrame implements View, Subject  {
      */
     public BookieUI() {
         initComponents();
+    }
+    
+    public BookieUI(BookieUIController controller) {
+        initComponents();
+        this.controller = controller;
     }
 
 
@@ -179,19 +187,19 @@ public class BookieUI extends javax.swing.JFrame implements View, Subject  {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonNewActionPerformed
-        
+        notify(null,"NEW");
     }//GEN-LAST:event_jToggleButtonNewActionPerformed
 
     private void jToggleButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonUpdateActionPerformed
-        
+        notify(null,"UPDATE");
     }//GEN-LAST:event_jToggleButtonUpdateActionPerformed
 
     private void jToggleButtonEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEndActionPerformed
-        
+        notify(null,"END");
     }//GEN-LAST:event_jToggleButtonEndActionPerformed
 
     private void jToggleButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDeleteActionPerformed
-        
+        notify(null,"DELETE");
     }//GEN-LAST:event_jToggleButtonDeleteActionPerformed
 
     private void exitBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBTActionPerformed
@@ -200,7 +208,7 @@ public class BookieUI extends javax.swing.JFrame implements View, Subject  {
     }//GEN-LAST:event_exitBTActionPerformed
 
     private void jToggleButtonObserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonObserveActionPerformed
-        
+        notify(null, "OBSERVE");
     }//GEN-LAST:event_jToggleButtonObserveActionPerformed
 
     /**
@@ -251,19 +259,15 @@ public class BookieUI extends javax.swing.JFrame implements View, Subject  {
     private javax.swing.JToggleButton jToggleButtonUpdate;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void updateView(Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void notify(String channel, String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.controller.updateObserver(message);
     }
 
     @Override
     public void addObserver(String channel, Observer o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.controller = o;
     }
 
     public void setTextName(String name){
@@ -272,9 +276,20 @@ public class BookieUI extends javax.swing.JFrame implements View, Subject  {
     public void setEmailText(String mail){
         this.jLabelEmail.setText(mail);
     }
+    public JTable getTable(){
+        return this.jTableEventos;
+    }
 
-
-    
+    public void addRow(String[] row, DefaultTableModel model){
+        model.addRow(row);
+        model.fireTableDataChanged();
+    }
+    public DefaultTableModel setTable(){
+        DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
+        this.jTableEventos.setModel(model);
+        this.jTableEventos.setCellSelectionEnabled(false);
+        return model;
+    }
    
 }
 

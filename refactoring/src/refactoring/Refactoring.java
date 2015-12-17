@@ -15,6 +15,7 @@ import View.LoginJFrame;
 public class Refactoring {
     public static void main(String args[]){
         BetESSAPI api = new BetESSAPI();
+        Povoa.povoaSystem(api);
         LoginController login = new LoginController(api);
         login.viewlogin();
     }

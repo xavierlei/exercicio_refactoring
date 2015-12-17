@@ -8,7 +8,7 @@ package Controller;
 import View.LoginJFrame;
 import View.View;
 import javax.swing.JFrame;
-import model.Observer;
+import ObserverPattern.Observer;
 import refactoring.BetESSAPI;
 
 /**

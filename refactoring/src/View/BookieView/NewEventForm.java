@@ -5,6 +5,8 @@
  */
 package View.BookieView;
 
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import refactoring.BetESSAPI;
 import java.util.Date;
 import model.Evento;
@@ -13,8 +15,9 @@ import model.Evento;
  *
  * @author xavier
  */
-public class NewEventForm extends javax.swing.JFrame {
+public class NewEventForm extends javax.swing.JFrame implements Subject {
     
+    Observer controller;
 
 
     /**
@@ -23,7 +26,10 @@ public class NewEventForm extends javax.swing.JFrame {
     public NewEventForm() {
         initComponents();
     }
-    
+    public NewEventForm(Observer controller) {
+        initComponents();
+        this.controller = controller;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -146,7 +152,7 @@ public class NewEventForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonAddActionPerformed
-        
+        this.notify(null, null);
     }//GEN-LAST:event_jToggleButtonAddActionPerformed
 
     private void jToggleButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCancelActionPerformed
@@ -203,4 +209,29 @@ public class NewEventForm extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonCancel;
     private javax.swing.JTextField oddDerrota;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notify(String channel, String message) {
+        this.controller.updateObserver(message);
+    }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        this.controller = o;
+    }
+    public String getEq1Text(){
+        return this.jTextFieldEq1.getText();
+    }
+    public String getEq2Text(){
+        return this.jTextFieldEq2.getText();
+    }
+    public String getOdd1Text(){
+        return this.OddVitoria.getText();
+    }
+    public String getOdd2Text(){
+        return this.oddDerrota.getText();
+    }
+    public String getOddXText(){
+        return this.OddEmpate.getText();
+    }
 }

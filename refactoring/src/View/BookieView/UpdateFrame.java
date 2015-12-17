@@ -5,6 +5,8 @@
  */
 package View.BookieView;
 
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import refactoring.BetESSAPI;
 import model.Evento;
 
@@ -12,7 +14,8 @@ import model.Evento;
  *
  * @author xavier
  */
-public class UpdateFrame extends javax.swing.JFrame {
+public class UpdateFrame extends javax.swing.JFrame implements Subject {
+    Observer controller;
  
 
     /**
@@ -20,6 +23,10 @@ public class UpdateFrame extends javax.swing.JFrame {
      */
     public UpdateFrame() {
         initComponents();
+    }
+    public UpdateFrame(Observer controller) {
+        initComponents();
+        this.controller = controller;
     }
    
 
@@ -147,7 +154,7 @@ public class UpdateFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        
+        this.notify(null,null);
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
@@ -203,4 +210,39 @@ public class UpdateFrame extends javax.swing.JFrame {
     private javax.swing.JTextField oddDerrota;
     private javax.swing.JTextField oddVitoria;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notify(String channel, String message) {
+        this.controller.updateObserver(message);
+    }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        this.controller = o;
+    }
+    
+    public String getOdd1Text(){
+        return this.oddVitoria.getText();
+    }
+    public String getOddXText(){
+        return this.OddEmpate.getText();
+    }
+    public String getOdd2Text(){
+        return this.oddDerrota.getText();
+    }
+    public boolean getIsOpen(){
+        return (this.jCheckBoxOpen.isSelected() == true) ? true : false;
+    }
+    public void setOdd1Text(String odd){
+        this.oddVitoria.setText(odd);
+    }
+    public void setOddXText(String odd){
+        this.OddEmpate.setText(odd);
+    }
+    public void setOdd2Text(String odd){
+        this.oddDerrota.setText(odd);
+    }
+    public void setIsOpen(boolean b){
+        this.jCheckBoxOpen.setSelected(b);
+    }
 }

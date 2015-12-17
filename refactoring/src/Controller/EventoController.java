@@ -5,9 +5,12 @@
  */
 package Controller;
 
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import model.Evento;
 import model.Resultado;
 
@@ -15,15 +18,17 @@ import model.Resultado;
  *
  * @author xavier
  */
-public class EventoController {
+public class EventoController implements Subject {
     private Evento evento;
     private Resultado resultado_final;
     private ArrayList<ApostaController> listaApostas;
     private OddController odds;
-    //private HashMap<String,ArrayList<Observer>> observers;
+    private HashMap<String,ArrayList<Observer>> observers;
     
     public EventoController(){
+        this.evento = new Evento();
         this.listaApostas = new ArrayList<ApostaController>();
+        this.observers  = new HashMap<String,ArrayList<Observer>>();
     }
     
     
@@ -131,5 +136,26 @@ public class EventoController {
             }
             return res;
         }
+
+    @Override
+    public void notify(String category,String message) {
+        if(this.observers.containsKey(category)){
+            for(Observer o : this.observers.get(category))
+                o.updateObserver(message);
+        }
+    }
+
+    @Override
+    public void addObserver(String category, ObserverPattern.Observer o) {
+        if(this.observers.containsKey(category)){
+            this.observers.get(category).add(o);
+        }
+        else{
+            ArrayList<Observer> obs = new ArrayList<Observer>();
+            obs.add(o);
+            this.observers.put(category, obs);
+        }
+    }
+    
     
 }

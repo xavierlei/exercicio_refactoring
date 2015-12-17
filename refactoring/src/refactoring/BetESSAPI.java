@@ -6,17 +6,15 @@ import Controller.ApostaController;
 import Controller.ApostadorController;
 import Controller.BookieController;
 import Controller.EventoController;
-import model.Evento;
-import model.Apostador;
+
 import java.time.Instant;
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import model.Aposta;
-import model.Bookie;
-import model.Subject;
-import model.Observer;
+import ObserverPattern.Subject;
+import ObserverPattern.Observer;
+
 
 public class BetESSAPI implements Subject {
 
@@ -54,7 +52,7 @@ public class BetESSAPI implements Subject {
 	}
 
 	// Interface sobre Eventos
-        public void observarEvento(Evento e,  Observer o, String category){
+        public void observarEvento(EventoController e,  Observer o, String category){
             e.addObserver(category, o);
         }
         
@@ -71,7 +69,7 @@ public class BetESSAPI implements Subject {
                 this.notify(null,null);
 		return b;
 	}
-        public void apagarEvento(Evento e){
+        public void apagarEvento(EventoController e){
             for(EventoController ev : this.listaEventos){
                 if(e.getId() == ev.getId()){
                     listaEventos.remove(ev);
@@ -84,6 +82,14 @@ public class BetESSAPI implements Subject {
         public ArrayList<EventoController> getEventos(){
             return this.listaEventos;
         }
+        
+        public EventoController getEvento(int cod){
+            for(EventoController e : this.listaEventos){
+                if(e.getId() == cod)
+                    return e;
+            }
+            return null;
+        }
 
 	public EventoController registaEvento(String equipa1, String equipa2) {
             //EventoController aposta = new EventoController(equipa1,equipa2, Date.from(Instant.now()));
@@ -92,7 +98,7 @@ public class BetESSAPI implements Subject {
             evento.setEquipa2(equipa2);
             evento.setDataEvento(Date.from(Instant.now()));
             this.listaEventos.add(evento);
-            this.notify(null,null);
+            //this.notify(null,null);
             return evento;
 	}
 
@@ -166,10 +172,12 @@ public class BetESSAPI implements Subject {
     }
 
     @Override
-    public void addObserver(String category, Observer o) {
+    public void addObserver(String channel, Observer o) {
         if(!this.views.contains(o))
             this.views.add(o);
     }
+
+    
 
 
 }

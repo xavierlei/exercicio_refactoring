@@ -12,7 +12,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.Apostador;
 import model.Evento;
-import model.Observer;
+import ObserverPattern.Observer;
 
 /**
  *

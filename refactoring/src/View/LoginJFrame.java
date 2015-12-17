@@ -11,8 +11,8 @@ import View.BookieView.BookieUI;
 import View.BookieView.BookieUI;
 import model.Apostador;
 import model.Bookie;
-import model.Observer;
-import model.Subject;
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import refactoring.Povoa;
 
 /**

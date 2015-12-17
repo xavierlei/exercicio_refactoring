@@ -5,6 +5,9 @@
  */
 package model;
 
+import ObserverPattern.Subject;
+import ObserverPattern.Observer;
+
 
 
 

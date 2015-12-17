@@ -1,5 +1,7 @@
 package model;
 
+import ObserverPattern.Subject;
+import ObserverPattern.Observer;
 import model.Apostador;
 import model.Aposta;
 import java.io.BufferedReader;
@@ -165,7 +167,7 @@ public class Evento implements Subject {
     }
 
     @Override
-    public void addObserver(String category, model.Observer o) {
+    public void addObserver(String category, ObserverPattern.Observer o) {
         if(this.observers.containsKey(category)){
             this.observers.get(category).add(o);
         }
