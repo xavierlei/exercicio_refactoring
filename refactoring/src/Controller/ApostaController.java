@@ -18,11 +18,10 @@ public class ApostaController {
     private ApostadorController apostador;
     private OddController odd;
     private Resultado resultado;
-    private View view;
+
     
-    public ApostaController(View v){
+    public ApostaController(){
         this.aposta = new Aposta();
-        this.view = v;
     }
 
     public ApostadorController getApostador() {

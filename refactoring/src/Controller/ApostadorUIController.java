@@ -48,6 +48,7 @@ public class ApostadorUIController implements Observer, Controller {
     @Override
     public void updateView(Object o) {
         try{
+            this.view.setTextCoins(new Float(this.me.getBetESScoins()).toString());
             DefaultTableModel model = view.setTable();
             for(EventoController e : this.api.getEventos()){
                 if(e.getVisible())
@@ -63,19 +64,25 @@ public class ApostadorUIController implements Observer, Controller {
         if(notificacao != null)
             switch(notificacao){
                 case "BET":
-                    System.out.println("BET");
+                    if(this.view.getTable().getSelectedRow()>-1){
+                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+                        new BetFormController(api, this, me, this.api.getEvento(ind));
+                    }
                     break;
                 case "OBSERVE":
-                    ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                    //this.api.getEvento(ind).addObserver("apostadores", this);
-                    this.api.observarEvento(this.api.getEvento(ind), me, "apostadores");
+                    if(this.view.getTable().getSelectedRow()>-1){
+                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+                        this.api.observarEvento(this.api.getEvento(ind), me, "apostadores");
+                    }
                     break;
                 case "VIEWBETS":
-                    System.out.println("VIEWBETS");
+                    if(this.view.getTable().getSelectedRow()>-1){
+                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+                        new ViewBetsFrameController(api, this.api.getEvento(ind), this.me);
+                    }
                     break;
                 default:
                     new NotificationFrame(notificacao).setVisible(true);
-                    //this.updateView(null);
                     break;
             }
         this.updateView(null);

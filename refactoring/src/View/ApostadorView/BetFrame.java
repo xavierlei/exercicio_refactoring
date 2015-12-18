@@ -5,6 +5,8 @@
  */
 package View.ApostadorView;
 
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import refactoring.BetESSAPI;
 import model.Aposta;
 import model.Apostador;
@@ -15,8 +17,8 @@ import model.Resultado;
  *
  * @author xavier
  */
-public class BetFrame extends javax.swing.JFrame {
-    
+public class BetFrame extends javax.swing.JFrame implements Subject {
+    Observer controller;
 
 
     /**
@@ -24,6 +26,11 @@ public class BetFrame extends javax.swing.JFrame {
      */
     public BetFrame() {
         initComponents();
+    }
+    public BetFrame(Observer controller) {
+        initComponents();
+        this.controller = controller;
+        this.jRadioButtonVitoria.setSelected(rootPaneCheckingEnabled);
     }
 
 
@@ -195,7 +202,7 @@ public class BetFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDerrotaActionPerformed
 
     private void jToggleButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonOkActionPerformed
-
+        this.notify(null,null);
     }//GEN-LAST:event_jToggleButtonOkActionPerformed
 
     /**
@@ -249,4 +256,27 @@ public class BetFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonCancel;
     private javax.swing.JToggleButton jToggleButtonOk;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notify(String channel, String message) {
+        this.controller.updateObserver(message);
+    }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        this.controller = controller;
+    }
+    
+    public boolean getVitoria(){
+        return this.jRadioButtonVitoria.isSelected();
+    }
+    public boolean getEmpate(){
+        return this.jRadioButtonEmpate.isSelected();
+    }
+    public boolean getDerrota(){
+        return this.jRadioButtonDerrota.isSelected();
+    }
+    public String getValortext(){
+        return this.jTextFieldCoins.getText();
+    }
 }

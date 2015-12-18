@@ -5,9 +5,12 @@
  */
 package View.ApostadorView;
 
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import refactoring.BetESSAPI;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Aposta;
 import model.Apostador;
@@ -19,6 +22,7 @@ import model.Resultado;
  * @author xavier
  */
 public class ViewBetsFrame extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form ViewBetsFrame
@@ -168,6 +172,20 @@ public class ViewBetsFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableApostas;
     private javax.swing.JToggleButton jToggleButtonClose;
     // End of variables declaration//GEN-END:variables
+
+    public JTable getTable(){
+        return this.jTableApostas;
+    }
+    public void addRow(String[] row, DefaultTableModel model){
+        model.addRow(row);
+        model.fireTableDataChanged();
+    }
+    public DefaultTableModel setTable(){
+        DefaultTableModel model = new DefaultTableModel(new String[]{"valor","odd","resultado"}, 0);
+        this.jTableApostas.setModel(model);
+        this.jTableApostas.setCellSelectionEnabled(false);
+        return model;
+    }
 
 
 }

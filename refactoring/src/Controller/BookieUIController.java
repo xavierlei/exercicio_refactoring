@@ -44,29 +44,34 @@ public class BookieUIController implements Controller, Observer {
                     NewEventFormController e = new NewEventFormController(api,this);
                     break;
                 case "UPDATE":
-                    //refactor aqui??
-                    ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                    ev = this.api.getEvento(ind);
-                    UpdateFormController u = new UpdateFormController(api, ev, this);
+                    if(this.view.getTable().getSelectedRow()>-1){
+                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+                        ev = this.api.getEvento(ind);
+                        UpdateFormController u = new UpdateFormController(api, ev, this);
+                    }
                     break;
                 case "END":
-                    ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                    ev = this.api.getEvento(ind);
-                    EndEventFrameController end = new EndEventFrameController(api, this, ev);
+                    if(this.view.getTable().getSelectedRow()>-1){
+                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+                        ev = this.api.getEvento(ind);
+                        EndEventFrameController end = new EndEventFrameController(api, this, ev);
+                    }
                     break;
                 case "DELETE":
-                    ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                    this.api.apagarEvento(this.api.getEvento(ind));
-                    this.updateView(null);
+                    if(this.view.getTable().getSelectedRow()>-1){
+                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+                        this.api.apagarEvento(this.api.getEvento(ind));
+                        //this.updateView(null);
+                    }
                     break;
                 case "OBSERVE":
-                    ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                    //this.api.getEvento(ind).addObserver("bookies", this);
-                    this.api.observarEvento(this.api.getEvento(ind), me, "bookies");
+                    if(this.view.getTable().getSelectedRow()>-1){
+                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+                        this.api.observarEvento(this.api.getEvento(ind), me, "bookies");
+                    }
                     break;
                 default:
                     new NotificationFrame(notificacao).setVisible(true);
-                    //this.updateView(null);
                     break;
             }
         this.updateView(null);

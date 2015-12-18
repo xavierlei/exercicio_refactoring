@@ -111,9 +111,9 @@ public class EventoController implements Subject {
 	public void notifyApostadores() {
 		if (!this.evento.getIsOpen()){                    
                     for(ApostaController aposta : this.listaApostas) {
-			//aposta.getApostador().updateObserver("ganhou "+premio(aposta)+" no evento "+this.evento.getId());
+			aposta.getApostador().updateObserver("ganhou "+premio(aposta)+" no evento "+this.evento.getId());
                         //isto deverá ficar aqui?
-                        //aposta.getApostador().setBetESScoins(aposta.getApostador().getBetESScoins()+premio(aposta));
+                        aposta.getApostador().setBetESScoins(aposta.getApostador().getBetESScoins()+premio(aposta));
                     }
 		}
 	}
