@@ -24,13 +24,21 @@ public class EventoController implements Subject {
     private ArrayList<ApostaController> listaApostas;
     private OddController odds;
     private HashMap<String,ArrayList<Observer>> observers;
+    private boolean visible;
     
     public EventoController(){
+        this.visible = true;
         this.evento = new Evento();
         this.listaApostas = new ArrayList<ApostaController>();
         this.observers  = new HashMap<String,ArrayList<Observer>>();
     }
     
+    public void setVisible(boolean b){
+        this.visible = b;
+    }
+    public boolean getVisible(){
+        return this.visible;
+    }
     
     public void setEquipa1(String equipa1) {
 		this.evento.setEquipa1(equipa1);
@@ -70,8 +78,8 @@ public class EventoController implements Subject {
 		this.setResultado(resultadofinal);
 		this.evento.SetIsOpen(false);
 		this.notifyApostadores();
-                //this.notify("bookies","O Evento "+this.getId()+" terminou!");
-                //this.notify("apostadores","O Evento "+this.getId()+" terminou!");
+                this.notify("bookies","O Evento "+this.getId()+" terminou!");
+                this.notify("apostadores","O Evento "+this.getId()+" terminou!");
 		return true;
 	}
 
@@ -83,13 +91,12 @@ public class EventoController implements Subject {
 		this.odds.setOddx(oddx);
 		this.odds.setOdd1(odd1);
 		this.odds.setOdd2(odd2);
-                //this.notify("bookies","a odd do evento "+this.getId()+" foi alterada!");
-                //this.notify("apostadores","a odd do evento "+this.getId()+" foi alterada!");
+                this.notify("bookies","a odd do evento "+this.getId()+" foi alterada!");
+                this.notify("apostadores","a odd do evento "+this.getId()+" foi alterada!");
 		return true;
 	}
 
 	public void setEstado(boolean estado) {
-		// TODO - implement Aposta.setEstado
             this.evento.SetIsOpen(estado);
 
 	}
@@ -125,7 +132,6 @@ public class EventoController implements Subject {
             this.odds.setOddx(odd_x);
 	}
 
-	// views Evento
 
 	
         public ArrayList<ApostaController> getApostas(ApostadorController apostador){
@@ -137,25 +143,25 @@ public class EventoController implements Subject {
             return res;
         }
 
-    @Override
-    public void notify(String category,String message) {
-        if(this.observers.containsKey(category)){
-            for(Observer o : this.observers.get(category))
-                o.updateObserver(message);
+        @Override
+        public void notify(String category,String message) {
+            if(this.observers.containsKey(category)){
+                for(Observer o : this.observers.get(category))
+                    o.updateObserver(message);
+            }
         }
-    }
 
-    @Override
-    public void addObserver(String category, ObserverPattern.Observer o) {
-        if(this.observers.containsKey(category)){
-            this.observers.get(category).add(o);
+        @Override
+        public void addObserver(String category, ObserverPattern.Observer o) {
+            if(this.observers.containsKey(category)){
+                this.observers.get(category).add(o);
+            }
+            else{
+                ArrayList<Observer> obs = new ArrayList<Observer>();
+                obs.add(o);
+                this.observers.put(category, obs);
+            }
         }
-        else{
-            ArrayList<Observer> obs = new ArrayList<Observer>();
-            obs.add(o);
-            this.observers.put(category, obs);
-        }
-    }
     
     
 }

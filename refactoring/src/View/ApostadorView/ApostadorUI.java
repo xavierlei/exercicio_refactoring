@@ -5,6 +5,7 @@
  */
 package View.ApostadorView;
 
+import Controller.ApostadorUIController;
 import refactoring.BetESSAPI;
 import View.LoginJFrame;
 import View.NotificationFrame;
@@ -13,12 +14,16 @@ import javax.swing.table.DefaultTableModel;
 import model.Apostador;
 import model.Evento;
 import ObserverPattern.Observer;
+import ObserverPattern.Subject;
+import javax.swing.JTable;
 
 /**
  *
  * @author xavier
  */
-public class ApostadorUI extends javax.swing.JFrame {
+public class ApostadorUI extends javax.swing.JFrame implements Subject {
+    Observer controller;
+    
     
     /**
      * Creates new form ApostadorUI
@@ -26,7 +31,10 @@ public class ApostadorUI extends javax.swing.JFrame {
     public ApostadorUI() {
         initComponents();
     }
-
+    public ApostadorUI(ApostadorUIController controller) {
+        initComponents();
+        this.controller = controller;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -146,7 +154,7 @@ public class ApostadorUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBetActionPerformed
-
+        this.notify(null, "BET");
     }//GEN-LAST:event_jButtonBetActionPerformed
 
     private void jToggleButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonExitActionPerformed
@@ -154,11 +162,11 @@ public class ApostadorUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonExitActionPerformed
 
     private void jToggleButtonObserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonObserveActionPerformed
-        
+        this.notify(null, "OBSERVE");
     }//GEN-LAST:event_jToggleButtonObserveActionPerformed
 
     private void jButtonViewBetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewBetsActionPerformed
-
+        this.notify(null, "VIEWBETS");
     }//GEN-LAST:event_jButtonViewBetsActionPerformed
 
     /**
@@ -207,8 +215,40 @@ public class ApostadorUI extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonExit;
     private javax.swing.JToggleButton jToggleButtonObserve;
     // End of variables declaration//GEN-END:variables
-
     
+    public void setTextNome(String s){
+        this.jLabelNome.setText(s);
+    }
+    public void setTextMail(String s){
+        this.jLabelMail.setText(s);
+    }
+    public void setTextCoins(String s){
+        this.jLabelCoins.setText(s);
+    }
+    
+    public JTable getTable(){
+        return this.jTableEventos;
+    }
 
+    public void addRow(String[] row, DefaultTableModel model){
+        model.addRow(row);
+        model.fireTableDataChanged();
+    }
+    public DefaultTableModel setTable(){
+        DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
+        this.jTableEventos.setModel(model);
+        this.jTableEventos.setCellSelectionEnabled(false);
+        return model;
+    }
+
+    @Override
+    public void notify(String channel, String message) {
+        this.controller.updateObserver(message);
+    }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        this.controller = o;
+    }
     
 }

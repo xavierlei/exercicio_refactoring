@@ -72,7 +72,8 @@ public class BetESSAPI implements Subject {
         public void apagarEvento(EventoController e){
             for(EventoController ev : this.listaEventos){
                 if(e.getId() == ev.getId()){
-                    listaEventos.remove(ev);
+                    //listaEventos.remove(ev);
+                    ev.setVisible(false);
                     this.notify(null,null);
                 }
             }

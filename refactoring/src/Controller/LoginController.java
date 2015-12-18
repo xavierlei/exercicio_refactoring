@@ -36,7 +36,10 @@ public class LoginController implements Observer {
     private void login(String tipo){
         if(tipo.equals("LOGINAPOSTADOR")){
             //System.out.println(tipo);
-            this.api.loginApostador(view.getNameText());         
+            ApostadorController ap = this.api.loginApostador(view.getNameText());
+            if(ap != null){
+                new ApostadorUIController(api, ap);
+            }
         }
         if(tipo.equals("LOGINBOOKIE")){
             //System.out.println(tipo);
