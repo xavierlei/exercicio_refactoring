@@ -112,7 +112,6 @@ public class EventoController implements Subject {
 		if (!this.evento.getIsOpen()){                    
                     for(ApostaController aposta : this.listaApostas) {
 			aposta.getApostador().updateObserver("ganhou "+premio(aposta)+" no evento "+this.evento.getId());
-                        //isto deverá ficar aqui?
                         aposta.getApostador().setBetESScoins(aposta.getApostador().getBetESScoins()+premio(aposta));
                     }
 		}
@@ -161,7 +160,5 @@ public class EventoController implements Subject {
                 obs.add(o);
                 this.observers.put(category, obs);
             }
-        }
-    
-    
+        }  
 }

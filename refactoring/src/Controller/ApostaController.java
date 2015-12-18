@@ -57,7 +57,7 @@ public class ApostaController {
     
     /*métodos*/
    public int getPremio(){
-       switch (this.getResultado()) {
+        switch (this.getResultado()) {
 		case VITORIA:
                     return (int) (this.aposta.getM_aposta() * this.odd.getOdd1());
 		case EMPATE:
@@ -65,7 +65,7 @@ public class ApostaController {
 		case DERROTA:
                     return (int) (this.aposta.getM_aposta() * this.odd.getOdd2());
 		}
-            return 0;
+        return 0;
    }
     
 }

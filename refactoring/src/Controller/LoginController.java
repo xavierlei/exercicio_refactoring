@@ -35,27 +35,21 @@ public class LoginController implements Observer {
 
     private void login(String tipo){
         if(tipo.equals("LOGINAPOSTADOR")){
-            //System.out.println(tipo);
-            ApostadorController ap = this.api.loginApostador(view.getNameText());
-            if(ap != null){
-                new ApostadorUIController(api, ap);
+            if(this.api.loginApostador(view.getNameText()) != null){
+                new ApostadorUIController(api, this.api.loginApostador(view.getNameText()));
             }
         }
         if(tipo.equals("LOGINBOOKIE")){
-            //System.out.println(tipo);
-            BookieController bookie = this.api.loginBookie(view.getNameText());
-             if(bookie!=null){
-                 new BookieUIController(api, bookie);
+             if(this.api.loginBookie(view.getNameText())!=null){
+                 new BookieUIController(api, this.api.loginBookie(view.getNameText()));
              }
         }
     }
     private void register(String tipo){
         if(tipo.equals("REGISTERAPOSTADOR")){
-            //System.out.println(tipo);
             this.api.registaApostador(view.getNameText(), view.getEmailText(), new Double(view.getBetCoinsText()));
         }
         if(tipo.equals("REGISTERBOOKIE")){
-            //System.out.println(tipo);
             this.api.registaBookie(view.getNameText(), view.getEmailText());
         }
     }

@@ -245,4 +245,10 @@ public class UpdateFrame extends javax.swing.JFrame implements Subject {
     public void setIsOpen(boolean b){
         this.jCheckBoxOpen.setSelected(b);
     }
+    public void setTextEq1(String s){
+        this.jLabelEq1.setText(s);
+    }
+    public void setTextEq2(String s){
+        this.jLabelEq2.setText(s);
+    }
 }

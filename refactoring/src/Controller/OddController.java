@@ -14,7 +14,6 @@ import model.Odd;
  */
 public class OddController {
     private Odd odd;
-    private View view;
     
     public OddController(){
         this.odd = new Odd();
@@ -56,7 +55,6 @@ public class OddController {
         res.setOdd1(this.getOdd1());
         res.setOdd2(this.getOdd2());
         res.setOddx(this.getOddx());
-        //res.view = new view();
         return res;
     }
 }

@@ -21,7 +21,6 @@ public class ApostadorController implements Observer, Subject {
 
     public ApostadorController() {
         this.apostador = new Apostador();
-        //this.view = v;
     }
     
     public String getEmail() {

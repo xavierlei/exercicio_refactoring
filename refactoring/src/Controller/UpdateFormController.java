@@ -24,7 +24,13 @@ public class UpdateFormController implements Observer, Controller {
         this.parent = parent;
         this.evento = evento;
         this.view = new UpdateFrame(this);
+        this.initForm();
         this.view.setVisible(true);
+    }
+    
+    private void initForm(){
+        this.view.setTextEq1(this.evento.getEquipa1());
+        this.view.setTextEq2(this.evento.getEquipa2());
         this.view.setOdd1Text(new Float(this.evento.getOdd().getOdd1()).toString());
         this.view.setOddXText(new Float(this.evento.getOdd().getOddx()).toString());
         this.view.setOdd2Text(new Float(this.evento.getOdd().getOdd2()).toString());

@@ -30,16 +30,19 @@ public class BetFormController implements Observer, Controller {
         this.view = new BetFrame(this);
         this.view.setVisible(true);
     }
+    
+    private ApostaController criaAposta(){
+        ApostaController aposta = new ApostaController();
+        aposta.setM_aposta(new Float(this.view.getValortext()));
+        aposta.setResultado((this.view.getVitoria() == true) ? '1' : (this.view.getEmpate() == true) ? 'x' : '2');
+        aposta.setApostador(apostador);
+        aposta.setOdd(this.evento.getOdd().clone());
+        return aposta;
+    }
 
     @Override
     public void updateObserver(String notificacao) {
-        char resultado = (this.view.getVitoria() == true) ? '1' : (this.view.getEmpate() == true) ? 'x' : '2';
-        ApostaController aposta = new ApostaController();
-        aposta.setM_aposta(new Float(this.view.getValortext()));
-        aposta.setResultado(resultado);
-        aposta.setApostador(apostador);
-        aposta.setOdd(this.evento.getOdd().clone());
-        this.api.registaAposta(aposta, evento, apostador);
+        this.api.registaAposta(criaAposta(), evento, apostador);
         this.view.dispose();
     }
 

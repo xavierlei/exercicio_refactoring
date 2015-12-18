@@ -72,7 +72,6 @@ public class BetESSAPI implements Subject {
         public void apagarEvento(EventoController e){
             for(EventoController ev : this.listaEventos){
                 if(e.getId() == ev.getId()){
-                    //listaEventos.remove(ev);
                     ev.setVisible(false);
                     this.notify(null,null);
                 }
@@ -93,13 +92,12 @@ public class BetESSAPI implements Subject {
         }
 
 	public EventoController registaEvento(String equipa1, String equipa2) {
-            //EventoController aposta = new EventoController(equipa1,equipa2, Date.from(Instant.now()));
             EventoController evento = new EventoController();
             evento.setEquipa1(equipa1);
             evento.setEquipa2(equipa2);
             evento.setDataEvento(Date.from(Instant.now()));
             this.listaEventos.add(evento);
-            //this.notify(null,null);
+            this.notify(null,null);
             return evento;
 	}
 
@@ -109,7 +107,6 @@ public class BetESSAPI implements Subject {
 
 	public ApostadorController registaApostador(String nome, String  email, double coins){
 		ApostadorController newuser = new ApostadorController();
-                //(nome, email, coins);
                 newuser.setName(nome);
                 newuser.setEmail(email);
                 newuser.setBetESScoins(coins);

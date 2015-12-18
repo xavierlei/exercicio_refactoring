@@ -29,7 +29,6 @@ public class ViewBetsFrameController implements Controller{
     }
     
     private String[] buildRow(ApostaController aposta){
-        //{"valor","odd","resultado"}
         String [] line = new String[3];
         line[0] = new Float(aposta.getM_aposta()).toString();
         line[1] = aposta.getOdd().toString();
@@ -41,7 +40,6 @@ public class ViewBetsFrameController implements Controller{
         try{
             DefaultTableModel model = view.setTable();
             for(ApostaController ap : this.api.getApostas(apostador, evento)){
-                //if(e.getVisible())
                 view.addRow(buildRow(ap), model);
             }
         }catch (Exception e){

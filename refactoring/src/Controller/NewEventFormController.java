@@ -28,9 +28,7 @@ public class NewEventFormController implements Observer,Controller {
 
     @Override
     public void updateObserver(String notificacao) {
-        System.out.println(notificacao);
-        EventoController e = this.api.registaEvento(this.view.getEq1Text(), this.view.getEq2Text());
-        e.setOdds(new Float(this.view.getOdd1Text()), new Float(this.view.getOddXText())
+        this.api.registaEvento(this.view.getEq1Text(), this.view.getEq2Text()).setOdds(new Float(this.view.getOdd1Text()), new Float(this.view.getOddXText())
                 ,new Float(this.view.getOdd2Text()));
         this.updateView(null);
     }
