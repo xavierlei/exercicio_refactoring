@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import View.View;
 import model.Apostador;
 
@@ -12,9 +14,10 @@ import model.Apostador;
  *
  * @author xavier
  */
-public class ApostadorController {
+public class ApostadorController implements Observer, Subject {
     Apostador apostador;
-    private View view;
+    Observer observer;
+    
 
     public ApostadorController() {
         this.apostador = new Apostador();
@@ -45,5 +48,20 @@ public class ApostadorController {
     public void setName(String name) {
 		this.apostador.setName(name);
 	}
+
+    @Override
+    public void updateObserver(String notificacao) {
+        this.observer.updateObserver(notificacao);
+    }
+
+    @Override
+    public void notify(String channel, String message) {
+        this.updateObserver(message);
+    }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        this.observer = o;
+    }
     
 }

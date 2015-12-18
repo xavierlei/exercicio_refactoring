@@ -7,6 +7,7 @@ package Controller;
 
 import ObserverPattern.Observer;
 import View.ApostadorView.ApostadorUI;
+import View.NotificationFrame;
 import javax.swing.table.DefaultTableModel;
 import refactoring.BetESSAPI;
 
@@ -22,6 +23,8 @@ public class ApostadorUIController implements Observer, Controller {
     public ApostadorUIController(BetESSAPI api, ApostadorController me) {
         this.api = api;
         this.me = me;
+        this.me.addObserver(null, this);//observar a classe apostador para receber as suas notificações
+        this.api.addObserver(null, this);//receber mudanças de estado da api
         this.view = new ApostadorUI(this);
         this.view.setVisible(true);
         this.view.setTextNome(this.me.getName());
@@ -56,19 +59,26 @@ public class ApostadorUIController implements Observer, Controller {
 
     @Override
     public void updateObserver(String notificacao) {
-        switch(notificacao){
-            case "BET":
-                System.out.println("BET");
-                break;
-            case "OBSERVE":
-                System.out.println("OBSERVE");
-                break;
-            case "VIEWBETS":
-                System.out.println("VIEWBETS");
-                break;
-            default:
-                break;
-        }
+        int ind;
+        if(notificacao != null)
+            switch(notificacao){
+                case "BET":
+                    System.out.println("BET");
+                    break;
+                case "OBSERVE":
+                    ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+                    //this.api.getEvento(ind).addObserver("apostadores", this);
+                    this.api.observarEvento(this.api.getEvento(ind), me, "apostadores");
+                    break;
+                case "VIEWBETS":
+                    System.out.println("VIEWBETS");
+                    break;
+                default:
+                    new NotificationFrame(notificacao).setVisible(true);
+                    //this.updateView(null);
+                    break;
+            }
+        this.updateView(null);
     }
     
     

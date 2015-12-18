@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import View.View;
 import model.Bookie;
 
@@ -12,13 +14,12 @@ import model.Bookie;
  *
  * @author xavier
  */
-public class BookieController {
+public class BookieController implements Observer, Subject {
     private Bookie bookie;
-    private View view;
+    Observer observer;
 
     public BookieController() {
         this.bookie = new Bookie();
-        //this.view = v;
     }
     public String getEmail(){
         return this.bookie.getEmail();
@@ -31,6 +32,21 @@ public class BookieController {
     }
     public void setNome(String nome){
         this.bookie.setNome(nome);
+    }
+
+    @Override
+    public void updateObserver(String notificacao) {
+        this.observer.updateObserver(notificacao);
+    }
+
+    @Override
+    public void notify(String channel, String message) {
+        this.updateObserver(message);
+    }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        this.observer = o;
     }
     
 }

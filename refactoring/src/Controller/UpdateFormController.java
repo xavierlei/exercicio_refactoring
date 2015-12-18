@@ -33,9 +33,9 @@ public class UpdateFormController implements Observer, Controller {
 
     @Override
     public void updateObserver(String notificacao) {
+        evento.setEstado(this.view.getIsOpen());
         this.api.actualizaOdd(evento, new Float(this.view.getOdd1Text())
                 , new Float(this.view.getOddXText()),new Float(this.view.getOdd2Text()));
-        evento.setEstado(this.view.getIsOpen());
         this.updateView(null);
         this.view.dispose();
     }
