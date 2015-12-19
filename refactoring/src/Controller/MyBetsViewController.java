@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import View.ApostadorView.ViewBetsFrame;
+import View.ApostadorView.MyBetsView;
 import javax.swing.table.DefaultTableModel;
 import refactoring.BetESSAPI;
 
@@ -13,17 +13,17 @@ import refactoring.BetESSAPI;
  *
  * @author xavier
  */
-public class ViewBetsFrameController implements Controller{
+public class MyBetsViewController implements Controller{
     BetESSAPI api;
     EventoController evento;
     ApostadorController apostador;
-    ViewBetsFrame view;
+    MyBetsView view;
     
-    public ViewBetsFrameController(BetESSAPI api,EventoController evento,ApostadorController apostador){
+    public MyBetsViewController(BetESSAPI api,EventoController evento,ApostadorController apostador){
         this.api = api;
         this.evento = evento;
         this.apostador = apostador;
-        this.view = new ViewBetsFrame();
+        this.view = new MyBetsView();
         this.view.setVisible(true);
         this.updateView(null);
     }
@@ -38,6 +38,9 @@ public class ViewBetsFrameController implements Controller{
     
     public void updateView(Object o) {
         try{
+            this.view.setTextEq1(this.evento.getEquipa1());
+            this.view.setTextEq2(this.evento.getEquipa2());
+            this.view.setTextId(new Integer(this.evento.getId()).toString());
             DefaultTableModel model = view.setTable();
             for(ApostaController ap : this.api.getApostas(apostador, evento)){
                 view.addRow(buildRow(ap), model);

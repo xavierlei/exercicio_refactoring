@@ -6,8 +6,8 @@
 package Controller;
 
 import ObserverPattern.Observer;
-import View.ApostadorView.ApostadorUI;
-import View.NotificationFrame;
+import View.ApostadorView.ApostadorUIView;
+import View.NotificationView;
 import javax.swing.table.DefaultTableModel;
 import refactoring.BetESSAPI;
 
@@ -15,17 +15,17 @@ import refactoring.BetESSAPI;
  *
  * @author xavier
  */
-public class ApostadorUIController implements Observer, Controller {
+public class ApostadorUIViewController implements Observer, Controller {
     BetESSAPI api;
     ApostadorController me;
-    ApostadorUI view;
+    ApostadorUIView view;
 
-    public ApostadorUIController(BetESSAPI api, ApostadorController me) {
+    public ApostadorUIViewController(BetESSAPI api, ApostadorController me) {
         this.api = api;
         this.me = me;
         this.me.addObserver(null, this);//observar a classe apostador para receber as suas notificações
         this.api.addObserver(null, this);//receber mudanças de estado da api
-        this.view = new ApostadorUI(this);
+        this.view = new ApostadorUIView(this);
         this.view.setVisible(true);
         this.view.setTextNome(this.me.getName());
         this.view.setTextMail(this.me.getEmail());
@@ -66,7 +66,7 @@ public class ApostadorUIController implements Observer, Controller {
                 case "BET":
                     if(this.view.getTable().getSelectedRow()>-1){
                         ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        new BetFormController(api, this, me, this.api.getEvento(ind));
+                        new BetViewController(api, this, me, this.api.getEvento(ind));
                     }
                     break;
                 case "OBSERVE":
@@ -78,11 +78,11 @@ public class ApostadorUIController implements Observer, Controller {
                 case "VIEWBETS":
                     if(this.view.getTable().getSelectedRow()>-1){
                         ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        new ViewBetsFrameController(api, this.api.getEvento(ind), this.me);
+                        new MyBetsViewController(api, this.api.getEvento(ind), this.me);
                     }
                     break;
                 default:
-                    new NotificationFrame(notificacao).setVisible(true);
+                    new NotificationView(notificacao).setVisible(true);
                     break;
             }
         this.updateView(null);

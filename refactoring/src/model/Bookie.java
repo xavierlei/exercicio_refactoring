@@ -15,7 +15,7 @@ import ObserverPattern.Observer;
  *
  * @author xavier
  */
-public class Bookie implements Observer, Subject {
+public class Bookie {
     private String nome;
     private String email;
     private Observer observador;
@@ -32,23 +32,5 @@ public class Bookie implements Observer, Subject {
     public String getNome(){return this.nome;}
     public void setEmail(String email){this.email = email;}
     public void setNome(String nome){this.nome = nome;}
-
-    @Override
-    public void updateObserver(String notificacao) {
-        this.notify(null,notificacao);
-    }
-
-
-    @Override
-    public void notify(String category, String message) {
-        this.observador.updateObserver(message);
-    }
-
-    @Override
-    public void addObserver(String category, Observer o) {
-        this.observador = o;
-    }
-
-
     
 }

@@ -6,36 +6,39 @@
 package Controller;
 
 import ObserverPattern.Observer;
-import View.BookieView.NewEventForm;
-import javax.swing.JFrame;
+import View.BookieView.EndEventView;
 import refactoring.BetESSAPI;
 
 /**
  *
  * @author xavier
  */
-public class NewEventFormController implements Observer,Controller {
-    BookieUIController parent;
-    NewEventForm view;
+public class EndEventViewController implements Observer, Controller {
     BetESSAPI api;
+    BookieUIViewController parent;
+    EventoController evento;
+    EndEventView view;
     
-    public NewEventFormController(BetESSAPI api, BookieUIController parent){
+    public EndEventViewController(BetESSAPI api, BookieUIViewController parent, EventoController evento){
         this.api = api;
         this.parent = parent;
-        this.view = new NewEventForm(this);
+        this.evento = evento;
+        this.view = new EndEventView(this);
         this.view.setVisible(true);
+        this.view.addObserver(null, this);
     }
 
     @Override
     public void updateObserver(String notificacao) {
-        this.api.registaEvento(this.view.getEq1Text(), this.view.getEq2Text()).setOdds(new Float(this.view.getOdd1Text()), new Float(this.view.getOddXText())
-                ,new Float(this.view.getOdd2Text()));
+        this.api.fechaEvento(this.evento, (this.view.getVitoria() == true) ? 
+                '1' : (this.view.getEmpate() == true) ? 'x' : '2');
         this.updateView(null);
+        this.view.dispose();
     }
 
     @Override
     public void updateView(Object o) {
         this.parent.updateView(o);
-        this.view.dispose();
     }
+    
 }

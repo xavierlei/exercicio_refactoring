@@ -15,7 +15,7 @@ import model.Resultado;
  *
  * @author xavier
  */
-public class EndEventFrame extends javax.swing.JFrame implements Subject {
+public class EndEventView extends javax.swing.JFrame implements Subject {
     
     Observer controller;
 
@@ -23,10 +23,10 @@ public class EndEventFrame extends javax.swing.JFrame implements Subject {
     /**
      * Creates new form EndEventFrame
      */
-    public EndEventFrame() {
+    public EndEventView() {
         initComponents();
     }
-    public EndEventFrame(Observer controller) {
+    public EndEventView(Observer controller) {
         initComponents();
         this.controller = controller;
         this.jRadioButtonVitoria.setSelected(rootPaneCheckingEnabled);
@@ -169,20 +169,21 @@ public class EndEventFrame extends javax.swing.JFrame implements Subject {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EndEventFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EndEventView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EndEventFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EndEventView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EndEventFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EndEventView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EndEventFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EndEventView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EndEventFrame().setVisible(true);
+                new EndEventView().setVisible(true);
             }
         });
     }

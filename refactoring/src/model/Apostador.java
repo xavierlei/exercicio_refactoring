@@ -8,12 +8,11 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 
-public class Apostador implements Observer, Subject{
+public class Apostador {
 
 	private String email;
 	private double betESScoins;
 	private String name;
-        private Observer observador;
 
 
 	public Apostador(String name, String email, double betESScoins) {
@@ -27,7 +26,6 @@ public class Apostador implements Observer, Subject{
 		this.email = "";
                 this.betESScoins = 0.0;
                 this.name = "";
-                this.observador = null;
 	}
 
 	public String getEmail() {
@@ -63,27 +61,5 @@ public class Apostador implements Observer, Subject{
 				", name='" + name + '\'' +
 				'}';
 	}
-
-	@Override
-	public void updateObserver(String notificacao) {
-                this.notify(null, notificacao);
-	}
-   
-        public boolean equals(Object o){
-            if(o.getClass()!=this.getClass())
-                return false;
-            Apostador a = (Apostador) o;
-            return (this.name == a.getName());
-        }
-
-    @Override
-    public void notify(String category, String message) {
-        this.observador.updateObserver(message);
-    }
-
-    @Override
-    public void addObserver(String category, Observer o) {
-        this.observador = o;
-    }
 
 }

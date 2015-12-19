@@ -6,24 +6,24 @@
 package Controller;
 
 import ObserverPattern.Observer;
-import View.BookieView.UpdateFrame;
+import View.BookieView.UpdateView;
 import refactoring.BetESSAPI;
 
 /**
  *
  * @author xavier
  */
-public class UpdateFormController implements Observer, Controller {
+public class UpdateViewController implements Observer, Controller {
     BetESSAPI api;
-    BookieUIController parent;
+    BookieUIViewController parent;
     EventoController evento;
-    UpdateFrame view;
+    UpdateView view;
 
-    public UpdateFormController(BetESSAPI api, EventoController evento,BookieUIController parent) {
+    public UpdateViewController(BetESSAPI api, EventoController evento,BookieUIViewController parent) {
         this.api = api;
         this.parent = parent;
         this.evento = evento;
-        this.view = new UpdateFrame(this);
+        this.view = new UpdateView(this);
         this.initForm();
         this.view.setVisible(true);
     }

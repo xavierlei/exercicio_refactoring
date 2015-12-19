@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import View.LoginJFrame;
+import View.LoginView;
 import View.View;
 import javax.swing.JFrame;
 import ObserverPattern.Observer;
@@ -15,15 +15,15 @@ import refactoring.BetESSAPI;
  *
  * @author xavier
  */
-public class LoginController implements Observer {
+public class LoginViewController implements Observer {
     
     
-    private LoginJFrame view;
+    private LoginView view;
     private BetESSAPI api;
     
-    public LoginController(BetESSAPI api){
+    public LoginViewController(BetESSAPI api){
         this.api = api;
-        this.view = new LoginJFrame();
+        this.view = new LoginView();
         this.view.addObserver("login", this);
         this.view.addObserver("register", this);
     }
@@ -36,12 +36,12 @@ public class LoginController implements Observer {
     private void login(String tipo){
         if(tipo.equals("LOGINAPOSTADOR")){
             if(this.api.loginApostador(view.getNameText()) != null){
-                new ApostadorUIController(api, this.api.loginApostador(view.getNameText()));
+                new ApostadorUIViewController(api, this.api.loginApostador(view.getNameText()));
             }
         }
         if(tipo.equals("LOGINBOOKIE")){
              if(this.api.loginBookie(view.getNameText())!=null){
-                 new BookieUIController(api, this.api.loginBookie(view.getNameText()));
+                 new BookieUIViewController(api, this.api.loginBookie(view.getNameText()));
              }
         }
     }

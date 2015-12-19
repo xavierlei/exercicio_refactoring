@@ -6,9 +6,9 @@
 package View;
 
 import refactoring.BetESSAPI;
-import View.ApostadorView.ApostadorUI;
-import View.BookieView.BookieUI;
-import View.BookieView.BookieUI;
+import View.ApostadorView.ApostadorUIView;
+import View.BookieView.BookieUIView;
+import View.BookieView.BookieUIView;
 import model.Apostador;
 import model.Bookie;
 import ObserverPattern.Observer;
@@ -19,7 +19,7 @@ import refactoring.Povoa;
  *
  * @author xavier
  */
-public class LoginJFrame extends javax.swing.JFrame implements View, Subject {
+public class LoginView extends javax.swing.JFrame implements View, Subject {
     Observer channelLogin;
     Observer channelRegister;
     
@@ -27,10 +27,10 @@ public class LoginJFrame extends javax.swing.JFrame implements View, Subject {
     /**
      * Creates new form LoginJFrame
      */
-    public LoginJFrame() {
+    public LoginView() {
         initComponents();
     }
-    public LoginJFrame(Observer login, Observer register) {
+    public LoginView(Observer login, Observer register) {
         initComponents();
         channelLogin = login;
         channelRegister = register;
@@ -204,20 +204,21 @@ public class LoginJFrame extends javax.swing.JFrame implements View, Subject {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginJFrame().setVisible(true);
+                new LoginView().setVisible(true);
             }
         });
     }

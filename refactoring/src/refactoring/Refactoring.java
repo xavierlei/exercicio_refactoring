@@ -5,8 +5,8 @@
  */
 package refactoring;
 
-import Controller.LoginController;
-import View.LoginJFrame;
+import Controller.LoginViewController;
+import View.LoginView;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Refactoring {
     public static void main(String args[]){
         BetESSAPI api = new BetESSAPI();
         Povoa.povoaSystem(api);
-        LoginController login = new LoginController(api);
+        LoginViewController login = new LoginViewController(api);
         login.viewlogin();
     }
 }

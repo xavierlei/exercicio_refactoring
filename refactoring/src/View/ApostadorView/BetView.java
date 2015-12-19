@@ -17,17 +17,17 @@ import model.Resultado;
  *
  * @author xavier
  */
-public class BetFrame extends javax.swing.JFrame implements Subject {
+public class BetView extends javax.swing.JFrame implements Subject {
     Observer controller;
 
 
     /**
      * Creates new form BetFrame
      */
-    public BetFrame() {
+    public BetView() {
         initComponents();
     }
-    public BetFrame(Observer controller) {
+    public BetView(Observer controller) {
         initComponents();
         this.controller = controller;
         this.jRadioButtonVitoria.setSelected(rootPaneCheckingEnabled);
@@ -222,20 +222,21 @@ public class BetFrame extends javax.swing.JFrame implements Subject {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BetFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BetView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BetFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BetView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BetFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BetView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BetFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BetView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BetFrame().setVisible(true);
+                new BetView().setVisible(true);
             }
         });
     }

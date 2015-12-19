@@ -6,28 +6,28 @@
 package Controller;
 
 import ObserverPattern.Observer;
-import View.ApostadorView.BetFrame;
+import View.ApostadorView.BetView;
 import refactoring.BetESSAPI;
 
 /**
  *
  * @author xavier
  */
-public class BetFormController implements Observer, Controller {
+public class BetViewController implements Observer, Controller {
     BetESSAPI api;
-    ApostadorUIController parent;
+    ApostadorUIViewController parent;
     ApostadorController apostador;
     EventoController evento;
-    BetFrame view;
+    BetView view;
     
     
-    public BetFormController(BetESSAPI api, ApostadorUIController parent
+    public BetViewController(BetESSAPI api, ApostadorUIViewController parent
             ,ApostadorController apostador,EventoController evento){
         this.api = api;
         this.parent = parent;
         this.apostador = apostador;
         this.evento = evento;
-        this.view = new BetFrame(this);
+        this.view = new BetView(this);
         this.view.setVisible(true);
     }
     

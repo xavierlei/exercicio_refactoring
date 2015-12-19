@@ -5,10 +5,10 @@
  */
 package View.ApostadorView;
 
-import Controller.ApostadorUIController;
+import Controller.ApostadorUIViewController;
 import refactoring.BetESSAPI;
-import View.LoginJFrame;
-import View.NotificationFrame;
+import View.LoginView;
+import View.NotificationView;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.Apostador;
@@ -21,17 +21,17 @@ import javax.swing.JTable;
  *
  * @author xavier
  */
-public class ApostadorUI extends javax.swing.JFrame implements Subject {
+public class ApostadorUIView extends javax.swing.JFrame implements Subject {
     Observer controller;
     
     
     /**
      * Creates new form ApostadorUI
      */
-    public ApostadorUI() {
+    public ApostadorUIView() {
         initComponents();
     }
-    public ApostadorUI(ApostadorUIController controller) {
+    public ApostadorUIView(ApostadorUIViewController controller) {
         initComponents();
         this.controller = controller;
     }
@@ -186,20 +186,21 @@ public class ApostadorUI extends javax.swing.JFrame implements Subject {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ApostadorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApostadorUIView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ApostadorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApostadorUIView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ApostadorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApostadorUIView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ApostadorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApostadorUIView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ApostadorUI().setVisible(true);
+                new ApostadorUIView().setVisible(true);
             }
         });
     }

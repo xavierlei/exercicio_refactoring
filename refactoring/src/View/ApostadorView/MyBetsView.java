@@ -21,13 +21,13 @@ import model.Resultado;
  *
  * @author xavier
  */
-public class ViewBetsFrame extends javax.swing.JFrame {
+public class MyBetsView extends javax.swing.JFrame {
     
 
     /**
      * Creates new form ViewBetsFrame
      */
-    public ViewBetsFrame() {
+    public MyBetsView() {
         initComponents();
     }
 
@@ -144,20 +144,21 @@ public class ViewBetsFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewBetsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MyBetsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewBetsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MyBetsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewBetsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MyBetsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewBetsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MyBetsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewBetsFrame().setVisible(true);
+                new MyBetsView().setVisible(true);
             }
         });
     }
@@ -186,6 +187,15 @@ public class ViewBetsFrame extends javax.swing.JFrame {
         this.jTableApostas.setCellSelectionEnabled(false);
         return model;
     }
-
+    
+    public void setTextEq1(String s){
+        this.jLabelE1.setText(s);
+    }
+    public void setTextEq2(String s){
+        this.jLabelE2.setText(s);
+    }
+    public void setTextId(String s){
+        this.jLabelId.setText(s);
+    }
 
 }

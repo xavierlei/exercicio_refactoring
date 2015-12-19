@@ -15,7 +15,7 @@ import model.Evento;
  *
  * @author xavier
  */
-public class NewEventForm extends javax.swing.JFrame implements Subject {
+public class NewEventView extends javax.swing.JFrame implements Subject {
     
     Observer controller;
 
@@ -23,10 +23,10 @@ public class NewEventForm extends javax.swing.JFrame implements Subject {
     /**
      * Creates new form NewEventForm
      */
-    public NewEventForm() {
+    public NewEventView() {
         initComponents();
     }
-    public NewEventForm(Observer controller) {
+    public NewEventView(Observer controller) {
         initComponents();
         this.controller = controller;
     }
@@ -176,20 +176,21 @@ public class NewEventForm extends javax.swing.JFrame implements Subject {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewEventForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewEventView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewEventForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewEventView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewEventForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewEventView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewEventForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewEventView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewEventForm().setVisible(true);
+                new NewEventView().setVisible(true);
             }
         });
     }

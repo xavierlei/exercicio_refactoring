@@ -5,9 +5,9 @@
  */
 package Controller;
 
-import View.BookieView.BookieUI;
+import View.BookieView.BookieUIView;
 import ObserverPattern.Observer;
-import View.NotificationFrame;
+import View.NotificationView;
 import javax.swing.table.DefaultTableModel;
 import refactoring.BetESSAPI;
 
@@ -15,17 +15,17 @@ import refactoring.BetESSAPI;
  *
  * @author xavier
  */
-public class BookieUIController implements Controller, Observer {
+public class BookieUIViewController implements Controller, Observer {
     private BetESSAPI api;
-    private BookieUI view;
+    private BookieUIView view;
     private BookieController me;
 
-    public BookieUIController(BetESSAPI api,BookieController me) {
+    public BookieUIViewController(BetESSAPI api,BookieController me) {
         this.api = api;
         this.me = me;
         this.api.addObserver("bookies", me);//receber mudanças de estado da api
         this.me.addObserver(null, this);//observer o bookie para receber as suas notificações
-        view = new BookieUI(this);
+        view = new BookieUIView(this);
         this.view.setTextName(me.getNome());
         this.view.setEmailText(me.getEmail());
         view.setVisible(true);
@@ -41,20 +41,20 @@ public class BookieUIController implements Controller, Observer {
         if(notificacao != null)
             switch(notificacao){
                 case "NEW":
-                    NewEventFormController e = new NewEventFormController(api,this);
+                    NewEventViewController e = new NewEventViewController(api,this);
                     break;
                 case "UPDATE":
                     if(this.view.getTable().getSelectedRow()>-1){
                         ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
                         ev = this.api.getEvento(ind);
-                        UpdateFormController u = new UpdateFormController(api, ev, this);
+                        UpdateViewController u = new UpdateViewController(api, ev, this);
                     }
                     break;
                 case "END":
                     if(this.view.getTable().getSelectedRow()>-1){
                         ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
                         ev = this.api.getEvento(ind);
-                        EndEventFrameController end = new EndEventFrameController(api, this, ev);
+                        EndEventViewController end = new EndEventViewController(api, this, ev);
                     }
                     break;
                 case "DELETE":
@@ -71,7 +71,7 @@ public class BookieUIController implements Controller, Observer {
                     }
                     break;
                 default:
-                    new NotificationFrame(notificacao).setVisible(true);
+                    new NotificationView(notificacao).setVisible(true);
                     break;
             }
         this.updateView(null);

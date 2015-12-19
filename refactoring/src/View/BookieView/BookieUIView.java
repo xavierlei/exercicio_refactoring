@@ -5,10 +5,10 @@
  */
 package View.BookieView;
 
-import Controller.BookieUIController;
-import View.NotificationFrame;
+import Controller.BookieUIViewController;
+import View.NotificationView;
 import refactoring.BetESSAPI;
-import View.LoginJFrame;
+import View.LoginView;
 import View.View;
 import java.util.Date;
 import java.util.Vector;
@@ -24,7 +24,7 @@ import javax.swing.JTable;
  *
  * @author xavier
  */
-public class BookieUI extends javax.swing.JFrame implements Subject  {
+public class BookieUIView extends javax.swing.JFrame implements Subject  {
     
     Observer controller;
 
@@ -32,11 +32,11 @@ public class BookieUI extends javax.swing.JFrame implements Subject  {
     /**
      * Creates new form BookieUI
      */
-    public BookieUI() {
+    public BookieUIView() {
         initComponents();
     }
     
-    public BookieUI(BookieUIController controller) {
+    public BookieUIView(BookieUIViewController controller) {
         initComponents();
         this.controller = controller;
     }
@@ -203,7 +203,7 @@ public class BookieUI extends javax.swing.JFrame implements Subject  {
     }//GEN-LAST:event_jToggleButtonDeleteActionPerformed
 
     private void exitBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBTActionPerformed
-        //new LoginJFrame(this.controller).setVisible(rootPaneCheckingEnabled);
+        //new LoginView(this.controller).setVisible(rootPaneCheckingEnabled);
         this.dispose();
     }//GEN-LAST:event_exitBTActionPerformed
 
@@ -228,20 +228,21 @@ public class BookieUI extends javax.swing.JFrame implements Subject  {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BookieUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookieUIView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BookieUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookieUIView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BookieUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookieUIView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BookieUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookieUIView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookieUI().setVisible(true);
+                new BookieUIView().setVisible(true);
             }
         });
     }
