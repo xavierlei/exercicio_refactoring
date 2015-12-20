@@ -79,7 +79,7 @@ public class BookieUIViewController implements Controller, Observer {
     }
 
     private String[] buildRow(EventoController e){
-        String [] res = new String[6];
+        String [] res = new String[7];
         res[0] = new Integer(e.getId()).toString();
         res[1] = e.getDono().getNome();
         res[2] = e.getEquipa1();
@@ -87,7 +87,9 @@ public class BookieUIViewController implements Controller, Observer {
         res[4] = e.getDataEvento().toString();
         res[5] = (e.getEstado() == true) ? "ABERTO" : "FECHADO";
         if(e.getResultado()!=null)
-            res[5] = e.getResultado().toString();
+            res[6] = e.getResultado().toString();
+        else
+            res[6] = "-";
         return res;
     }
     
