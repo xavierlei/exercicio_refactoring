@@ -6,39 +6,32 @@
 package Controller;
 
 import ObserverPattern.Observer;
-import View.BookieView.EndEventView;
+import View.BookieView.DeleteView;
 import refactoring.BetESSAPI;
 
 /**
  *
  * @author xavier
  */
-public class EndEventViewController implements Observer, Controller {
+public class DeleteViewController implements Observer {
     private BetESSAPI api;
     private BookieUIViewController parent;
     private EventoController evento;
-    private EndEventView view;
+    private DeleteView view;
     
-    public EndEventViewController(BetESSAPI api, BookieUIViewController parent, EventoController evento){
+    public DeleteViewController(BetESSAPI api, BookieUIViewController parent, EventoController evento){
         this.api = api;
         this.parent = parent;
         this.evento = evento;
-        this.view = new EndEventView(this);
+        this.view = new DeleteView(this);
         this.view.setVisible(true);
-        this.view.addObserver(null, this);
     }
 
     @Override
     public void updateObserver(String notificacao) {
-        this.api.fechaEvento(this.evento, (this.view.getVitoria() == true) ? 
-                '1' : (this.view.getEmpate() == true) ? 'x' : '2');
-        this.updateView(null);
+        this.api.apagarEvento(this.evento);
+        this.parent.updateView(api);
         this.view.dispose();
-    }
-
-    @Override
-    public void updateView(Object o) {
-        this.parent.updateView(o);
     }
     
 }

@@ -43,7 +43,7 @@ public class BetESSAPI implements Subject {
         
 
 	public void registaAposta(ApostaController aposta, EventoController evento, ApostadorController apostador) {
-                if(aposta.getM_aposta()<= apostador.getBetESScoins()){
+                if(aposta.getM_aposta()<= apostador.getBetESScoins() && evento.getEstado()){
                     evento.registaAposta(aposta);
                     apostador.setBetESScoins(apostador.getBetESScoins()-aposta.getM_aposta());
                     this.notify("apostadores", null);
@@ -91,8 +91,9 @@ public class BetESSAPI implements Subject {
             return null;
         }
 
-	public EventoController registaEvento(String equipa1, String equipa2) {
+	public EventoController registaEvento(String equipa1, String equipa2, BookieController dono) {
             EventoController evento = new EventoController();
+            evento.setDono(dono);
             evento.setEquipa1(equipa1);
             evento.setEquipa2(equipa2);
             evento.setDataEvento(Date.from(Instant.now()));

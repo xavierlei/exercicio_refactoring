@@ -16,9 +16,9 @@ import refactoring.BetESSAPI;
  * @author xavier
  */
 public class ApostadorUIViewController implements Observer, Controller {
-    BetESSAPI api;
-    ApostadorController me;
-    ApostadorUIView view;
+    private BetESSAPI api;
+    private ApostadorController me;
+    private ApostadorUIView view;
 
     public ApostadorUIViewController(BetESSAPI api, ApostadorController me) {
         this.api = api;
@@ -39,10 +39,11 @@ public class ApostadorUIViewController implements Observer, Controller {
     private String[] buildRow(EventoController e){
         String [] res = new String[6];
         res[0] = new Integer(e.getId()).toString();
-        res[1] = e.getEquipa1();
-        res[2] = e.getEquipa2();
-        res[3] = e.getDataEvento().toString();
-        res[4] = (e.getEstado() == true) ? "ABERTO" : "FECHADO";
+        res[1] = e.getDono().getNome();
+        res[2] = e.getEquipa1();
+        res[3] = e.getEquipa2();
+        res[4] = e.getDataEvento().toString();
+        res[5] = (e.getEstado() == true) ? "ABERTO" : "FECHADO";
         if(e.getResultado()!=null)
             res[5] = e.getResultado().toString();
         return res;

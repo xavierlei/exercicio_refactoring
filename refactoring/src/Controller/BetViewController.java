@@ -14,11 +14,11 @@ import refactoring.BetESSAPI;
  * @author xavier
  */
 public class BetViewController implements Observer, Controller {
-    BetESSAPI api;
-    ApostadorUIViewController parent;
-    ApostadorController apostador;
-    EventoController evento;
-    BetView view;
+    private BetESSAPI api;
+    private ApostadorUIViewController parent;
+    private ApostadorController apostador;
+    private EventoController evento;
+    private BetView view;
     
     
     public BetViewController(BetESSAPI api, ApostadorUIViewController parent
@@ -57,7 +57,7 @@ public class BetViewController implements Observer, Controller {
 
     @Override
     public void updateView(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.parent.updateView(null);
     }
    
     

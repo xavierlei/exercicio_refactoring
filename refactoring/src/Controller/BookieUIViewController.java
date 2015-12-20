@@ -26,6 +26,7 @@ public class BookieUIViewController implements Controller, Observer {
         this.api.addObserver("bookies", me);//receber mudanças de estado da api
         this.me.addObserver(null, this);//observer o bookie para receber as suas notificações
         view = new BookieUIView(this);
+        this.setViewText();
         view.setVisible(true);
         this.updateView(null);
     }
@@ -42,7 +43,7 @@ public class BookieUIViewController implements Controller, Observer {
     private void updateSwitch(String notificacao){
         switch(notificacao){
                 case "NEW":
-                    NewEventViewController e = new NewEventViewController(api,this);
+                    NewEventViewController e = new NewEventViewController(api,this,me);
                     break;
                 case "UPDATE":
                     if(this.view.getTable().getSelectedRow()>-1){
@@ -56,7 +57,7 @@ public class BookieUIViewController implements Controller, Observer {
                     break;
                 case "DELETE":
                     if(this.view.getTable().getSelectedRow()>-1){
-                        this.api.apagarEvento(this.api.getEvento(this.getSelectedEvent()));
+                        DeleteViewController dv = new DeleteViewController(api, this, this.api.getEvento(this.getSelectedEvent()));
                     }
                     break;
                 case "OBSERVE":
@@ -80,10 +81,11 @@ public class BookieUIViewController implements Controller, Observer {
     private String[] buildRow(EventoController e){
         String [] res = new String[6];
         res[0] = new Integer(e.getId()).toString();
-        res[1] = e.getEquipa1();
-        res[2] = e.getEquipa2();
-        res[3] = e.getDataEvento().toString();
-        res[4] = (e.getEstado() == true) ? "ABERTO" : "FECHADO";
+        res[1] = e.getDono().getNome();
+        res[2] = e.getEquipa1();
+        res[3] = e.getEquipa2();
+        res[4] = e.getDataEvento().toString();
+        res[5] = (e.getEstado() == true) ? "ABERTO" : "FECHADO";
         if(e.getResultado()!=null)
             res[5] = e.getResultado().toString();
         return res;

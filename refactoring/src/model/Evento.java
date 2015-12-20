@@ -13,10 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.time.Instant;
 
 public class Evento  {
-
-
 	private static AtomicInteger uniqueId=new AtomicInteger();
-
 	private String equipa1;
 	private String equipa2;
 	private Date dataEvento;

@@ -20,6 +20,7 @@ import model.Resultado;
  */
 public class EventoController implements Subject {
     private Evento evento;
+    private BookieController dono;
     private Resultado resultado_final;
     private ArrayList<ApostaController> listaApostas;
     private OddController odds;
@@ -38,6 +39,12 @@ public class EventoController implements Subject {
     }
     public boolean getVisible(){
         return this.visible;
+    }
+    public BookieController getDono(){
+        return this.dono;
+    }
+    public void setDono(BookieController dono){
+        this.dono = dono;
     }
     
     public void setEquipa1(String equipa1) {

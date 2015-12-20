@@ -236,7 +236,7 @@ public class ApostadorUIView extends javax.swing.JFrame implements Subject {
         model.fireTableDataChanged();
     }
     public DefaultTableModel setTable(){
-        DefaultTableModel model = new DefaultTableModel(new String[]{"id","equipa 1","equipa 2","data","estado","resultado"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"id","Bookie","equipa 1","equipa 2","data","estado","resultado"}, 0);
         this.jTableEventos.setModel(model);
         this.jTableEventos.setCellSelectionEnabled(false);
         return model;

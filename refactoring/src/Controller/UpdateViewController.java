@@ -14,10 +14,10 @@ import refactoring.BetESSAPI;
  * @author xavier
  */
 public class UpdateViewController implements Observer, Controller {
-    BetESSAPI api;
-    BookieUIViewController parent;
-    EventoController evento;
-    UpdateView view;
+    private BetESSAPI api;
+    private BookieUIViewController parent;
+    private EventoController evento;
+    private UpdateView view;
 
     public UpdateViewController(BetESSAPI api, EventoController evento,BookieUIViewController parent) {
         this.api = api;

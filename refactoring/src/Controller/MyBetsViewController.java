@@ -14,10 +14,10 @@ import refactoring.BetESSAPI;
  * @author xavier
  */
 public class MyBetsViewController implements Controller{
-    BetESSAPI api;
-    EventoController evento;
-    ApostadorController apostador;
-    MyBetsView view;
+    private BetESSAPI api;
+    private EventoController evento;
+    private ApostadorController apostador;
+    private MyBetsView view;
     
     public MyBetsViewController(BetESSAPI api,EventoController evento,ApostadorController apostador){
         this.api = api;

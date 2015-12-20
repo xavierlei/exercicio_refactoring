@@ -15,7 +15,7 @@ import model.Bookie;
  */
 public class BookieController implements Observer, Subject {
     private Bookie bookie;
-    Observer observer;
+    private Observer observer;
 
     public BookieController() {
         this.bookie = new Bookie();

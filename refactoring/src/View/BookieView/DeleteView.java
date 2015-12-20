@@ -5,6 +5,8 @@
  */
 package View.BookieView;
 
+import ObserverPattern.Observer;
+import ObserverPattern.Subject;
 import refactoring.BetESSAPI;
 import model.Evento;
 
@@ -12,14 +14,18 @@ import model.Evento;
  *
  * @author xavier
  */
-public class DeleteView extends javax.swing.JFrame {
-
+public class DeleteView extends javax.swing.JFrame implements Subject {
+    private Observer controller;
 
     /**
      * Creates new form DeleteFrame
      */
     public DeleteView() {
         initComponents();
+    }
+    public DeleteView(Observer o) {
+        initComponents();
+        this.controller = o;
     }
 
 
@@ -39,7 +45,7 @@ public class DeleteView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelWarning1.setText("Atenção! o evento ainda não terminou e podem existir apostas");
+        jLabelWarning1.setText("Atenção! podem existir apostas associadas a este evento.");
 
         jToggleButtonDelete.setText("delete");
         jToggleButtonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -62,17 +68,19 @@ public class DeleteView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(jToggleButtonDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButtonCancel))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelWarning1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabelWarning2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabelWarning1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabelWarning2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jToggleButtonDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButtonCancel)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,11 +89,11 @@ public class DeleteView extends javax.swing.JFrame {
                 .addComponent(jLabelWarning1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelWarning2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButtonDelete)
                     .addComponent(jToggleButtonCancel))
-                .addGap(71, 71, 71))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -96,7 +104,7 @@ public class DeleteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonCancelActionPerformed
 
     private void jToggleButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDeleteActionPerformed
-        
+        this.notify(null,null);
     }//GEN-LAST:event_jToggleButtonDeleteActionPerformed
 
     /**
@@ -141,4 +149,14 @@ public class DeleteView extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonCancel;
     private javax.swing.JToggleButton jToggleButtonDelete;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notify(String channel, String message) {
+        this.controller.updateObserver(message);
+    }
+
+    @Override
+    public void addObserver(String channel, Observer o) {
+        this.controller = o;
+    }
 }
