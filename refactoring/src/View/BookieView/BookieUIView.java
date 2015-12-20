@@ -9,7 +9,6 @@ import Controller.BookieUIViewController;
 import View.NotificationView;
 import refactoring.BetESSAPI;
 import View.LoginView;
-import View.View;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +25,7 @@ import javax.swing.JTable;
  */
 public class BookieUIView extends javax.swing.JFrame implements Subject  {
     
-    Observer controller;
+    private Observer controller;
 
 
     /**

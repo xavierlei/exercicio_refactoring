@@ -19,9 +19,9 @@ import refactoring.Povoa;
  *
  * @author xavier
  */
-public class LoginView extends javax.swing.JFrame implements View, Subject {
-    Observer channelLogin;
-    Observer channelRegister;
+public class LoginView extends javax.swing.JFrame implements Subject {
+    private Observer channelLogin;
+    private Observer channelRegister;
     
 
     /**
@@ -239,10 +239,7 @@ public class LoginView extends javax.swing.JFrame implements View, Subject {
     private javax.swing.JButton loginButton;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void updateView(Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public void notify(String channel, String message) {

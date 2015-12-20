@@ -7,7 +7,6 @@ package Controller;
 
 import ObserverPattern.Observer;
 import ObserverPattern.Subject;
-import View.View;
 import model.Apostador;
 
 /**

@@ -26,54 +26,54 @@ public class BookieUIViewController implements Controller, Observer {
         this.api.addObserver("bookies", me);//receber mudanças de estado da api
         this.me.addObserver(null, this);//observer o bookie para receber as suas notificações
         view = new BookieUIView(this);
-        this.view.setTextName(me.getNome());
-        this.view.setEmailText(me.getEmail());
         view.setVisible(true);
         this.updateView(null);
     }
     
+    private void setViewText(){
+        this.view.setTextName(me.getNome());
+        this.view.setEmailText(me.getEmail());
+    }
 
-    @Override
-    public void updateObserver(String notificacao) {
-        //fazer um refactor neste método
-        Integer ind;
-        EventoController ev;
-        if(notificacao != null)
-            switch(notificacao){
+    private Integer getSelectedEvent(){
+        return new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+    }
+    
+    private void updateSwitch(String notificacao){
+        switch(notificacao){
                 case "NEW":
                     NewEventViewController e = new NewEventViewController(api,this);
                     break;
                 case "UPDATE":
                     if(this.view.getTable().getSelectedRow()>-1){
-                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        ev = this.api.getEvento(ind);
-                        UpdateViewController u = new UpdateViewController(api, ev, this);
+                        UpdateViewController u = new UpdateViewController(api, this.api.getEvento(this.getSelectedEvent()), this);
                     }
                     break;
                 case "END":
                     if(this.view.getTable().getSelectedRow()>-1){
-                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        ev = this.api.getEvento(ind);
-                        EndEventViewController end = new EndEventViewController(api, this, ev);
+                        EndEventViewController end = new EndEventViewController(api, this, this.api.getEvento(this.getSelectedEvent()));
                     }
                     break;
                 case "DELETE":
                     if(this.view.getTable().getSelectedRow()>-1){
-                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        this.api.apagarEvento(this.api.getEvento(ind));
-                        //this.updateView(null);
+                        this.api.apagarEvento(this.api.getEvento(this.getSelectedEvent()));
                     }
                     break;
                 case "OBSERVE":
                     if(this.view.getTable().getSelectedRow()>-1){
-                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        this.api.observarEvento(this.api.getEvento(ind), me, "bookies");
+                        this.api.observarEvento(this.api.getEvento(this.getSelectedEvent()), me, "bookies");
                     }
                     break;
                 default:
                     new NotificationView(notificacao).setVisible(true);
                     break;
             }
+    }
+    
+    @Override
+    public void updateObserver(String notificacao) {
+        if(notificacao != null)
+            this.updateSwitch(notificacao);
         this.updateView(null);
     }
 

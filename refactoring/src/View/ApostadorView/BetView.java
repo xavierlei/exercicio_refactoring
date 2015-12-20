@@ -18,7 +18,7 @@ import model.Resultado;
  * @author xavier
  */
 public class BetView extends javax.swing.JFrame implements Subject {
-    Observer controller;
+    private Observer controller;
 
 
     /**
@@ -279,5 +279,20 @@ public class BetView extends javax.swing.JFrame implements Subject {
     }
     public String getValortext(){
         return this.jTextFieldCoins.getText();
+    }
+    public void setEq1Text(String s){
+        this.jLabelEq1.setText(s);
+    }
+    public void setEq2Text(String s){
+        this.jLabelEq2.setText(s);
+    }
+    public void setOdd1Text(String s){
+        this.jLabelOddVit.setText(s);
+    }
+    public void setOddXText(String s){
+        this.jLabelOddEmp.setText(s);
+    }
+    public void setOdd2Text(String s){
+        this.jLabelOddDer.setText(s);
     }
 }

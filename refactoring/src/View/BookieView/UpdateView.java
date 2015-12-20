@@ -15,7 +15,7 @@ import model.Evento;
  * @author xavier
  */
 public class UpdateView extends javax.swing.JFrame implements Subject {
-    Observer controller;
+    private Observer controller;
  
 
     /**

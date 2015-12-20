@@ -17,7 +17,7 @@ import model.Resultado;
  */
 public class EndEventView extends javax.swing.JFrame implements Subject {
     
-    Observer controller;
+    private Observer controller;
 
 
     /**

@@ -22,7 +22,7 @@ import javax.swing.JTable;
  * @author xavier
  */
 public class ApostadorUIView extends javax.swing.JFrame implements Subject {
-    Observer controller;
+    private Observer controller;
     
     
     /**

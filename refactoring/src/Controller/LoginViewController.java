@@ -6,7 +6,6 @@
 package Controller;
 
 import View.LoginView;
-import View.View;
 import javax.swing.JFrame;
 import ObserverPattern.Observer;
 import refactoring.BetESSAPI;

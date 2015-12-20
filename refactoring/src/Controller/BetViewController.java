@@ -28,7 +28,16 @@ public class BetViewController implements Observer, Controller {
         this.apostador = apostador;
         this.evento = evento;
         this.view = new BetView(this);
+        this.setUIText();
         this.view.setVisible(true);
+    }
+    
+    private void setUIText(){
+        this.view.setEq1Text(this.evento.getEquipa1());
+        this.view.setEq2Text(this.evento.getEquipa2());
+        this.view.setOdd1Text(new Float(this.evento.getOdd().getOdd1()).toString());
+        this.view.setOddXText(new Float(this.evento.getOdd().getOddx()).toString());
+        this.view.setOdd2Text(new Float(this.evento.getOdd().getOdd2()).toString());
     }
     
     private ApostaController criaAposta(){

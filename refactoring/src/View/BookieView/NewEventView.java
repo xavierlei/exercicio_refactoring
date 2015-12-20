@@ -17,7 +17,7 @@ import model.Evento;
  */
 public class NewEventView extends javax.swing.JFrame implements Subject {
     
-    Observer controller;
+    private Observer controller;
 
 
     /**

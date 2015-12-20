@@ -27,10 +27,13 @@ public class ApostadorUIViewController implements Observer, Controller {
         this.api.addObserver(null, this);//receber mudanças de estado da api
         this.view = new ApostadorUIView(this);
         this.view.setVisible(true);
+        this.updateView(null);
+    }
+    
+    private void setUIText(){
         this.view.setTextNome(this.me.getName());
         this.view.setTextMail(this.me.getEmail());
         this.view.setTextCoins(new Double(this.me.getBetESScoins()).toString());
-        this.updateView(me);
     }
 
     private String[] buildRow(EventoController e){
@@ -57,34 +60,39 @@ public class ApostadorUIViewController implements Observer, Controller {
         }catch (Exception e){
         }
     }
-
-    @Override
-    public void updateObserver(String notificacao) {
-        int ind;
-        if(notificacao != null)
-            switch(notificacao){
+    
+    private Integer getSelectedEvent(){
+        return new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
+    }
+    
+    private void updateSwitch(String notificacao){
+        switch(notificacao){
                 case "BET":
                     if(this.view.getTable().getSelectedRow()>-1){
-                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        new BetViewController(api, this, me, this.api.getEvento(ind));
+                        new BetViewController(api, this, me, this.api.getEvento(getSelectedEvent()));
                     }
                     break;
                 case "OBSERVE":
                     if(this.view.getTable().getSelectedRow()>-1){
-                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        this.api.observarEvento(this.api.getEvento(ind), me, "apostadores");
+                        this.api.observarEvento(this.api.getEvento(getSelectedEvent()), me, "apostadores");
                     }
                     break;
                 case "VIEWBETS":
                     if(this.view.getTable().getSelectedRow()>-1){
-                        ind = new Integer(this.view.getTable().getValueAt(this.view.getTable().getSelectedRow(), 0).toString());
-                        new MyBetsViewController(api, this.api.getEvento(ind), this.me);
+                        new MyBetsViewController(api, this.api.getEvento(getSelectedEvent()), this.me);
                     }
                     break;
                 default:
                     new NotificationView(notificacao).setVisible(true);
                     break;
             }
+    }
+
+    @Override
+    public void updateObserver(String notificacao) {
+        int ind;
+        if(notificacao != null)
+            this.updateSwitch(notificacao);
         this.updateView(null);
     }
     
